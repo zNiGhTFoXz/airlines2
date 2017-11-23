@@ -9,7 +9,7 @@ import core.interfaces.IController;
 
 import java.util.Map;
 
-public class RouteController extends Controller implements IController{
+public class MenuController extends Controller implements IController{
     @Override
     public Map<String, String> init() {
         return null;
