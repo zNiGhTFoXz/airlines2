@@ -2,6 +2,8 @@
 ** Created by NiGhTFoX on 24.11.2017.
 */
 
+import project.helpers.LocationParser;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,7 +18,7 @@ public class Main {
 
     public static void main (String args[]){
         /* Location Parser Test */
-        /*LocationParser lp = new LocationParser("controller/action?id=&id2=test2$=test3");
+        LocationParser lp = new LocationParser("controller/action?id=&id2=test2$=test3");
         try {
             lp.parse();
             System.out.println(lp.getLocation());
@@ -25,6 +27,6 @@ public class Main {
             System.out.println(lp.getParams().entrySet());
         }catch (Exception exp){
             System.out.println(exp.getMessage());
-        }*/
+        }
     }
 }
