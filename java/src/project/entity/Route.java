@@ -6,5 +6,7 @@ package project.entity;
 
 import core.entity.Entity;
 
-public class Route extends Entity{
+import java.io.Serializable;
+
+public class Route extends Entity implements Serializable{
 }

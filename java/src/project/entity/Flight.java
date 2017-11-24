@@ -6,5 +6,7 @@ package project.entity;
 
 import core.entity.Entity;
 
-public class Flight extends Entity{
+import java.io.Serializable;
+
+public class Flight extends Entity implements Serializable{
 }
