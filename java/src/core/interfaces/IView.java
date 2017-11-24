@@ -5,4 +5,6 @@ package core.interfaces;
 */
 
 public interface IView {
+    void clear();
+    void print();
 }

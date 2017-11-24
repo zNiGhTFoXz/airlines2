@@ -8,4 +8,13 @@ import core.interfaces.IView;
 import core.view.View;
 
 public class RouteView extends View implements IView{
+    @Override
+    public void clear() {
+
+    }
+
+    @Override
+    public void print() {
+
+    }
 }
