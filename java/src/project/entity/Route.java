@@ -9,4 +9,5 @@ import core.entity.Entity;
 import java.io.Serializable;
 
 public class Route extends Entity implements Serializable{
+
 }
