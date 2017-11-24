@@ -5,6 +5,7 @@ package project.entity;
 */
 
 import core.entity.Entity;
+import java.util.Date;
 
 import java.io.Serializable;
 import java.util.Date;
