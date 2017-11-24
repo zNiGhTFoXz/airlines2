@@ -12,7 +12,7 @@ import java.util.Date;
 public class Flight extends Entity implements Serializable{
     private long number;
     private String airbus;
-    private String route;
+    private Route route;
     private Date timeFrom;
     private Date timePath;
 
@@ -24,7 +24,7 @@ public class Flight extends Entity implements Serializable{
         return airbus;
     }
 
-    public String getRoute() {
+    public Route getRoute() {
         return route;
     }
 
@@ -44,7 +44,7 @@ public class Flight extends Entity implements Serializable{
         this.airbus = airbus;
     }
 
-    public void setRoute(String route) {
+    public void setRoute(Route route) {
         this.route = route;
     }
 
