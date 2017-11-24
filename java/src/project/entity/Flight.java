@@ -5,12 +5,10 @@ package project.entity;
 */
 
 import core.entity.Entity;
+
 import java.util.Date;
 
-import java.io.Serializable;
-import java.util.Date;
-
-public class Flight extends Entity implements Serializable{
+public class Flight extends Entity {
     private long number;
     private String airbus;
     private Route route;
