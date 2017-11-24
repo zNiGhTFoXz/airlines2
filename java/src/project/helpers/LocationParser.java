@@ -11,15 +11,31 @@ import java.util.regex.Pattern;
 
 public final class LocationParser {
     private String location;
+    private String backLocation;
     private String controller;
     private String action;
     private Map<String, String> params;
+
+    public LocationParser(){}
 
     public LocationParser(final String location){
         this.location = location;
     }
 
+    public String getBackLocation() {
+        if(this.backLocation == null || this.backLocation.isEmpty()) {
+            return null;
+        }
+
+        return this.backLocation;
+    }
+
+    public void setBackLocation(String backLocation) {
+        this.backLocation = backLocation;
+    }
+
     public void setLocation(String location){
+        this.backLocation = this.location;
         this.location = location;
     }
 
@@ -27,16 +43,14 @@ public final class LocationParser {
         return this.location;
     }
 
-    public void parse() throws Exception{
+    public void parse() {
         // controller/action?name=value...
         String regExp = "^(\\w+)\\/(\\w+)[\\?]{0,}(.*)";
 
         Pattern p = Pattern.compile(regExp);
         Matcher matcher = p.matcher(this.location);
 
-        if(!matcher.matches()){
-            throw new Exception("Wrong location path!");
-        }else {
+        if(matcher.matches()){
             this.controller = matcher.group(1);
             this.action = matcher.group(2);
             this.params = parse(matcher.group(3));
