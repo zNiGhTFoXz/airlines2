@@ -22,36 +22,51 @@ public final class Router {
     private Map<String, String> PARAMS;
 
     public void start(){
+        LocationParser lp = new LocationParser();
 
-        if(CONTROLLER_NAME == null){
-            CONTROLLER_NAME = prepareControllerName(DEFAULT_CONTROLLER);
-        }else {
-            CONTROLLER_NAME = prepareControllerName(CONTROLLER_NAME);
-        }
+        do {
+            if (CONTROLLER_NAME == null || CONTROLLER_NAME.isEmpty()) {
+                CONTROLLER_NAME = prepareControllerName(DEFAULT_CONTROLLER);
+            } else {
+                CONTROLLER_NAME = prepareControllerName(CONTROLLER_NAME);
+            }
 
-        if(this.ACTION_NAME == null){
-            this.ACTION_NAME = DEFAULT_ACTION;
-        }
+            if (ACTION_NAME == null || ACTION_NAME.isEmpty()) {
+                ACTION_NAME = DEFAULT_ACTION;
+            }
 
-        if(PARAMS == null){
-            PARAMS = new HashMap<>();
-        }
+            if (PARAMS == null) {
+                PARAMS = new HashMap<>();
+            }
 
-        IController controller;
+            IController controller;
 
-        try {
-            controller = getController(CONTROLLER_FOLDER + "." + CONTROLLER_NAME + CONTROLLER_PREFIX);
-        }catch (Exception exp){
-            controller = new MenuController();
-        }
+            try {
+                controller = getController(CONTROLLER_FOLDER + "." + CONTROLLER_NAME + CONTROLLER_PREFIX);
+            } catch (Exception exp) {
+                controller = new MenuController();
+            }
 
-        Map<String, String> listOfActions;
+            Map<String, String> listOfActions;
 
-        try {
-            listOfActions = callAction(controller, ACTION_NAME, PARAMS);
-        } catch (Exception e) {
-            listOfActions = new MenuController().init();
-        }
+            try {
+                listOfActions = callAction(controller, ACTION_NAME, PARAMS);
+            } catch (Exception e) {
+                listOfActions = new MenuController().init();
+            }
+
+            String location = actionEventListener(listOfActions);
+            lp.setLocation(location);
+            lp.parse();
+
+            CONTROLLER_NAME = lp.getControllerName();
+            ACTION_NAME = lp.getActionName();
+            PARAMS = lp.getParams();
+        }while (true);
+    }
+
+    private String actionEventListener(Map<String, String> listOfActions){
+        return null;
     }
 
     private String prepareControllerName(final String name){
