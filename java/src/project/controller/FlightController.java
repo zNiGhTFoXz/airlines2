@@ -10,6 +10,7 @@ import core.interfaces.IController;
 import java.util.Map;
 
 public class FlightController extends Controller implements IController{
+
     @Override
     public Map<String, String> init() {
         return null;
@@ -38,5 +39,10 @@ public class FlightController extends Controller implements IController{
     @Override
     public Map<String, String> update(String id) {
         return null;
+    }
+
+    @Override
+    public void setLastAction(String lastAction) {
+
     }
 }
