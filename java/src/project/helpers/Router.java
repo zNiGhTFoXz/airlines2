@@ -46,7 +46,7 @@ public class Router {
         Map<String, String> listOfActions;
 
         try {
-            listOfActions = callAction(controller, this.ACTION_NAME);
+            listOfActions = callAction(controller, this.ACTION_NAME, this.params);
         } catch (Exception e) {
             listOfActions = new MenuController().init();
         }
@@ -64,9 +64,13 @@ public class Router {
     }
 
     @SuppressWarnings("unchecked")
-    private Map<String, String> callAction(IController controller, String action) throws Exception{
-        Method method = controller.getClass().getMethod(action);
-
-        return (Map<String, String>) method.invoke (controller);
+    private Map<String, String> callAction(IController controller, String action, Map<String, String> params) throws Exception{
+        if(params != null && !params.isEmpty()) {
+            Method method = controller.getClass().getMethod(action, params.getClass());
+            return (Map<String, String>) method.invoke(controller, params);
+        }else {
+            Method method = controller.getClass().getMethod(action);
+            return (Map<String, String>) method.invoke(controller);
+        }
     }
 }
