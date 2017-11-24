@@ -2,26 +2,49 @@
 ** Created by NiGhTFoX on 24.11.2017.
 */
 
+import project.helpers.LocationParser;
+
 public class Main {
     public static void main (String args[]){
-        /* Location Parser Test */
-        /*LocationParser lp = new LocationParser("controller/action?id=&id2=test2$=test3");
-        try {
-            lp.parse();
-            System.out.println(lp.getLocation());
-            System.out.println(lp.getControllerName());
-            System.out.println(lp.getActionName());
-            System.out.println(lp.getParams().entrySet());
-        }catch (Exception exp){
-            System.out.println(exp.getMessage());
-        }*/
-
         /*Router router = new Router();
         try {
             router.start();
         } catch (Exception e) {
             e.printStackTrace();
         }*/
-        System.out.println("Pisk");
+
+        /*
+        * **************************************
+        * # TESTS #
+        ****************************************
+        */
+
+        // -- # Location Parser Test # --
+        test1();
+    }
+
+    private static void test1(){
+        String [] locations = {
+                "controller/action?id=&id2=test2$=test3",
+                "controller/action",
+                "controller/action?",
+                "controller/action?id=test1&id2=test2&id3=test3",
+                "controller/action?id=&id2=&id3=test3",
+        };
+
+        for(String location : locations) {
+            System.out.println("Test for: " + location);
+            LocationParser lp = new LocationParser(location);
+            try {
+                lp.parse();
+                System.out.println("Full location: " + lp.getLocation());
+                System.out.println("Controller name: " + lp.getControllerName());
+                System.out.println("Action name: " + lp.getActionName());
+                System.out.println("Query: " + lp.getParams().entrySet());
+            } catch (Exception exp) {
+                System.out.println(exp.getMessage());
+            }
+            System.out.println();
+        }
     }
 }
