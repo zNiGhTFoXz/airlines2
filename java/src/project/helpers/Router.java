@@ -11,7 +11,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Router {
+public final class Router {
     private static final String DEFAULT_CONTROLLER = "menu";
     private static final String DEFAULT_ACTION = "init";
     private static final String CONTROLLER_PREFIX = "Controller";
@@ -19,26 +19,28 @@ public class Router {
 
     private String CONTROLLER_NAME;
     private String ACTION_NAME;
-    private Map<String, String> params;
+    private Map<String, String> PARAMS;
 
     public void start(){
 
-        if(this.CONTROLLER_NAME == null){
-            this.CONTROLLER_NAME = prepareControllerName(DEFAULT_CONTROLLER);
+        if(CONTROLLER_NAME == null){
+            CONTROLLER_NAME = prepareControllerName(DEFAULT_CONTROLLER);
+        }else {
+            CONTROLLER_NAME = prepareControllerName(CONTROLLER_NAME);
         }
 
         if(this.ACTION_NAME == null){
             this.ACTION_NAME = DEFAULT_ACTION;
         }
 
-        if(this.params == null){
-            this.params = new HashMap<>();
+        if(PARAMS == null){
+            PARAMS = new HashMap<>();
         }
 
         IController controller;
 
         try {
-            controller = getController(CONTROLLER_FOLDER + "." + this.CONTROLLER_NAME + CONTROLLER_PREFIX);
+            controller = getController(CONTROLLER_FOLDER + "." + CONTROLLER_NAME + CONTROLLER_PREFIX);
         }catch (Exception exp){
             controller = new MenuController();
         }
@@ -46,7 +48,7 @@ public class Router {
         Map<String, String> listOfActions;
 
         try {
-            listOfActions = callAction(controller, this.ACTION_NAME, this.params);
+            listOfActions = callAction(controller, ACTION_NAME, PARAMS);
         } catch (Exception e) {
             listOfActions = new MenuController().init();
         }
@@ -56,7 +58,7 @@ public class Router {
         return name.substring(0, 1).toUpperCase() + name.substring(1);
     }
 
-    private IController getController(String controller) throws Exception{
+    private IController getController(final String controller) throws Exception{
         Class c = Class.forName(controller);
         Object obj = c.newInstance();
 
@@ -64,7 +66,7 @@ public class Router {
     }
 
     @SuppressWarnings("unchecked")
-    private Map<String, String> callAction(IController controller, String action, Map<String, String> params) throws Exception{
+    private Map<String, String> callAction(IController controller, final String action, Map<String, String> params) throws Exception{
         if(params != null && !params.isEmpty()) {
             Method method = controller.getClass().getMethod(action, params.getClass());
             return (Map<String, String>) method.invoke(controller, params);
