@@ -44,8 +44,11 @@ public final class LocationParser {
     }
 
     public void parse() {
-        // controller/action?name=value...
-        String regExp = "^(\\w+)\\/(\\w+)[\\?]{0,}(.*)";
+        /*
+        * controller/action?name=value...
+        * (controller)/(action)?(name=value)
+        * */
+        String regExp = "^(\\w+)\\/(\\w+)[\\?]*(.*)";
 
         Pattern p = Pattern.compile(regExp);
         Matcher matcher = p.matcher(this.location);
