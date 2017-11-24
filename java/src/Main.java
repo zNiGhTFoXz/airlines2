@@ -22,5 +22,6 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
         }*/
+        System.out.println("Piska");
     }
 }
