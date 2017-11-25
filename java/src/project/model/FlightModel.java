@@ -15,12 +15,11 @@ import java.util.List;
 
 public class FlightModel extends Model implements IModel {
     @Override
-    public void save() {
+    public void save(Entity obj) {
         try {
             FileOutputStream fos = new FileOutputStream("temp.out");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            Flight flight = new Flight();
-            oos.writeObject(flight);
+            oos.writeObject(obj);
             oos.flush();
             oos.close();
         }

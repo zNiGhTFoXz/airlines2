@@ -5,11 +5,12 @@ package core.interfaces;
 */
 
 import core.entity.Entity;
+import project.entity.Flight;
 
 import java.util.List;
 
 public interface IModel {
-    void save();
+    void save(Entity obj);
     Entity load();
     List<Entity> loadAll();
 }
