@@ -9,10 +9,7 @@ import core.interfaces.IModel;
 import core.model.Model;
 import project.entity.Route;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -41,12 +38,29 @@ public class RouteModel extends Model implements IModel{
     }
 
     @Override
-    public Entity load() {
+    public Entity load(String uuid) {
         try {
-            FileInputStream fis = new FileInputStream("file.out");
-            ObjectInputStream oin = new ObjectInputStream(fis);
-            Route route = (Route) oin.readObject();
-            System.out.println("version:" + route.getVersion());
+            if(Files.isDirectory(path)) {
+                /*File dir = new File("C://RouteDir/");
+                File[] files = dir.listFiles(new FilenameFilter() {
+                    @Override
+                    public boolean accept(File dir, String name) {
+                        return name.matches(uuid);
+                    }
+                });
+
+                for (File file : files) {
+                    FileInputStream fis = new FileInputStream(file.getPath());
+                    ObjectInputStream oin = new ObjectInputStream(fis);
+                    Route route = (Route) oin.readObject();
+                    System.out.println("version:" + route.getVersion());
+                }*/
+                FileInputStream fis = new FileInputStream(path + uuid + "out");
+                ObjectInputStream oin = new ObjectInputStream(fis);
+                Route route = (Route) oin.readObject();
+                System.out.println("version:" + route.getVersion());
+
+            }
         }
         catch (Exception exp){
             exp.printStackTrace();

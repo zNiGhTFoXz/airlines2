@@ -44,23 +44,25 @@ public class FlightModel extends Model implements IModel {
 
     @Override
     public Entity load(String uuid) {
+
         try {
-            File dir = new File("C://FlightDir/");
-            File[] files = dir.listFiles(new FilenameFilter() {
-                @Override
-                public boolean accept(File dir, String name) {
-                    return name.matches(uuid + "_");
+            if(Files.isDirectory(path)) {
+                File dir = new File("C://FlightDir/");
+                File[] files = dir.listFiles(new FilenameFilter() {
+                    @Override
+                    public boolean accept(File dir, String name) {
+                        return name.matches(uuid + "_");
+                    }
+                });
+
+                for (File file : files) {
+                    FileInputStream fis = new FileInputStream(file.getPath());
+                    ObjectInputStream oin = new ObjectInputStream(fis);
+                    Flight flight = (Flight) oin.readObject();
+                    System.out.println("version:" + flight.getVersion());
                 }
-            });
 
-            for (File file:files) {
-                FileInputStream fis = new FileInputStream(file.getPath());
-                ObjectInputStream oin = new ObjectInputStream(fis);
-                Flight flight = (Flight) oin.readObject();
-                System.out.println("version:" + flight.getVersion());
             }
-            //FileInputStream fis = new FileInputStream("Flight/file.out");
-
         }
         catch (Exception exp){
             exp.printStackTrace();
