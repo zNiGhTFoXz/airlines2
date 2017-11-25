@@ -5,5 +5,13 @@ package core.model;
 */
 
 public abstract class Model {
+    protected String serialisationObjectsFolder;
 
+    public String getSerialisationObjectsFolder() {
+        return serialisationObjectsFolder;
+    }
+
+    public void setSerialisationObjectsFolder(String serialisationObjectsFolder) {
+        this.serialisationObjectsFolder = serialisationObjectsFolder;
+    }
 }

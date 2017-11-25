@@ -1,7 +1,7 @@
 package project.model;
 
 /*
-** Created by NiGhTFoX on 24.11.2017.
+** Created by NiGhTFoX on 25.11.2017.
 */
 
 import core.entity.Entity;
@@ -10,7 +10,7 @@ import core.model.Model;
 
 import java.util.List;
 
-public class RouteModel extends Model implements IModel{
+public class MenuModel extends Model implements IModel{
     @Override
     public void save() {
 

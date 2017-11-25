@@ -15,7 +15,7 @@ public final class Router {
     private static final String DEFAULT_CONTROLLER = "menu";
     private static final String DEFAULT_ACTION = "init";
     private static final String CONTROLLER_PREFIX = "Controller";
-    private static final String CONTROLLER_FOLDER = "project.controller";
+    private static final String CONTROLLER_PACKAGE = "project.controller";
 
     private String CONTROLLER_NAME;
     private String ACTION_NAME;
@@ -24,7 +24,7 @@ public final class Router {
     public void start(){
         LocationParser lp = new LocationParser();
 
-        do {
+        //do {
             if (CONTROLLER_NAME == null || CONTROLLER_NAME.isEmpty()) {
                 CONTROLLER_NAME = prepareControllerName(DEFAULT_CONTROLLER);
             } else {
@@ -42,12 +42,12 @@ public final class Router {
             IController controller;
 
             try {
-                controller = getController(CONTROLLER_FOLDER + "." + CONTROLLER_NAME + CONTROLLER_PREFIX);
+                controller = getController(CONTROLLER_PACKAGE + "." + CONTROLLER_NAME + CONTROLLER_PREFIX);
             } catch (Exception exp) {
                 controller = new MenuController();
             }
 
-            Map<String, String> listOfActions;
+            Map<String, Map<String, String>> listOfActions;
 
             try {
                 listOfActions = callAction(controller, ACTION_NAME, PARAMS);
@@ -62,11 +62,11 @@ public final class Router {
             CONTROLLER_NAME = lp.getControllerName();
             ACTION_NAME = lp.getActionName();
             PARAMS = lp.getParams();
-        }while (true);
+        //}while (true);
     }
 
-    private String actionEventListener(Map<String, String> listOfActions){
-        return null;
+    private String actionEventListener(Map<String, Map<String, String>> listOfActions){
+        return "menu/init";
     }
 
     private String prepareControllerName(final String name){
@@ -81,13 +81,13 @@ public final class Router {
     }
 
     @SuppressWarnings("unchecked")
-    private Map<String, String> callAction(IController controller, final String action, Map<String, String> params) throws Exception{
+    private Map<String, Map<String, String>> callAction(IController controller, final String action, Map<String, String> params) throws Exception{
         if(params != null && !params.isEmpty()) {
             Method method = controller.getClass().getMethod(action, params.getClass());
-            return (Map<String, String>) method.invoke(controller, params);
+            return (Map<String, Map<String, String>>) method.invoke(controller, params);
         }else {
             Method method = controller.getClass().getMethod(action);
-            return (Map<String, String>) method.invoke(controller);
+            return (Map<String, Map<String, String>>) method.invoke(controller);
         }
     }
 }

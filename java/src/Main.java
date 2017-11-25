@@ -3,15 +3,16 @@
 */
 
 import project.helpers.LocationParser;
+import project.helpers.Router;
 
 public class Main {
     public static void main (String args[]){
-        /*Router router = new Router();
+        Router router = new Router();
         try {
             router.start();
         } catch (Exception e) {
             e.printStackTrace();
-        }*/
+        }
 
         /*
         * **************************************
@@ -20,7 +21,16 @@ public class Main {
         */
 
         // -- # Location Parser Test # --
-        test1();
+        //test1();
+
+        /*Route a = new Route();
+        System.out.println(a.getUuid().toString());
+        System.out.println(a.getVersion());
+
+        Flight b = new Flight();
+        System.out.println(b.getUuid().toString());
+        System.out.println(b.getVersion());*/
+
     }
 
     private static void test1(){

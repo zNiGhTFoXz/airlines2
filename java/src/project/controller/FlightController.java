@@ -6,38 +6,43 @@ package project.controller;
 
 import core.controller.Controller;
 import core.interfaces.IController;
+import project.model.FlightModel;
 
 import java.util.Map;
 
 public class FlightController extends Controller implements IController{
 
+    public FlightController(){
+        this.model = new FlightModel();
+    }
+
     @Override
-    public Map<String, String> init() {
+    public Map<String, Map<String, String>> init() {
         return null;
     }
 
     @Override
-    public Map<String, String> get() {
+    public Map<String, Map<String, String>> get() {
         return null;
     }
 
     @Override
-    public Map<String, String> get(String id) {
+    public Map<String, Map<String, String>> get(String id) {
         return null;
     }
 
     @Override
-    public Map<String, String> create() {
+    public Map<String, Map<String, String>> create() {
         return null;
     }
 
     @Override
-    public Map<String, String> delete(String id) {
+    public Map<String, Map<String, String>> delete(String id) {
         return null;
     }
 
     @Override
-    public Map<String, String> update(String id) {
+    public Map<String, Map<String, String>> update(String id) {
         return null;
     }
 

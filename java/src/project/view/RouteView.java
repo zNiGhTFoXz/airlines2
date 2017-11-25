@@ -14,7 +14,7 @@ public class RouteView extends View implements IView{
     }
 
     @Override
-    public void print() {
+    public void print(String tpl, String[] params, boolean newLine) {
 
     }
 }

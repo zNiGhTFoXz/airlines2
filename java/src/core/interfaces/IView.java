@@ -5,6 +5,5 @@ package core.interfaces;
 */
 
 public interface IView {
-    void clear();
-    void print();
+    void print(String tpl, String[] params, boolean newLine);
 }
