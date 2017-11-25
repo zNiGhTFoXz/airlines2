@@ -30,7 +30,6 @@ public class FlightModel extends Model implements IModel {
 
     @Override
     public Entity load() {
-
         FileInputStream fis = new FileInputStream("file.out");
         ObjectInputStream oin = new ObjectInputStream(fis);
         Flight flight = (Flight) oin.readObject();
