@@ -14,6 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.UUID;
 
 
 public class FlightModel extends Model implements IModel {
@@ -42,13 +43,24 @@ public class FlightModel extends Model implements IModel {
     }
 
     @Override
-    public Entity load() {
+    public Entity load(String uuid) {
         try {
+            File dir = new File("C://FlightDir/");
+            File[] files = dir.listFiles(new FilenameFilter() {
+                @Override
+                public boolean accept(File dir, String name) {
+                    return name.matches(uuid + "_");
+                }
+            });
 
-            FileInputStream fis = new FileInputStream("Flight/file.out");
-            ObjectInputStream oin = new ObjectInputStream(fis);
-            Flight flight = (Flight) oin.readObject();
-            System.out.println("version:" + flight.getVersion());
+            for (File file:files) {
+                FileInputStream fis = new FileInputStream(file.getPath());
+                ObjectInputStream oin = new ObjectInputStream(fis);
+                Flight flight = (Flight) oin.readObject();
+                System.out.println("version:" + flight.getVersion());
+            }
+            //FileInputStream fis = new FileInputStream("Flight/file.out");
+
         }
         catch (Exception exp){
             exp.printStackTrace();

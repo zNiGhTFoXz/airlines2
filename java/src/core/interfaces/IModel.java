@@ -11,6 +11,6 @@ import java.util.List;
 
 public interface IModel {
     void save(Entity obj);
-    Entity load();
+    Entity load(String uuid);
     List<Entity> loadAll();
 }
