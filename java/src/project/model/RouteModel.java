@@ -14,6 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Map;
 
 public class RouteModel extends Model implements IModel{
     private Path path = Paths.get("C://RouteDir/");
@@ -72,4 +73,7 @@ public class RouteModel extends Model implements IModel{
     public List<Entity> loadAll() {
         return null;
     }
+
+    public void delete(String uuid){}
+    public void update(Map<String, String> params) {}
 }

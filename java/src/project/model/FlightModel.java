@@ -14,6 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 
@@ -88,16 +89,44 @@ public class FlightModel extends Model implements IModel {
                 if(file.delete()){
                     System.out.println(file.getName() + "is deleted!");
                 } else { System.out.println("Delete operation is failed!"); }
-
             }
-
         }
         catch(Exception exp){
             exp.printStackTrace();
         }
     }
 
-    /*public void update(List<String> params) {
+    public void update(Map<String, String> params) {
+        try {
+            if(Files.isDirectory(path)) {
+                String uuid = params.get("id");
 
-    }*/
+                File dir = new File("C://FlightDir/");
+                File[] files = dir.listFiles(new FilenameFilter() {
+                    @Override
+                    public boolean accept(File dir, String name) {
+                        return name.matches(uuid + "_");
+                    }
+                });
+
+                for (File file : files) {
+                    FileInputStream fis = new FileInputStream(file.getPath());
+                    ObjectInputStream oin = new ObjectInputStream(fis);
+                    Flight flight = (Flight) oin.readObject();
+                    flight.setNumber(Long.parseLong(params.get("number")));
+                    flight.setAirbus(params.get("airbus"));
+                    //flight.setRoute(params.get("route"));
+                    //flight.setTimeFrom();
+                }
+
+
+
+
+            }
+        }
+        catch (Exception exp){
+            exp.printStackTrace();
+        }
+
+    }
 }
