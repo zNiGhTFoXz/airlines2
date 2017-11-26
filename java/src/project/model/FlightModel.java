@@ -74,4 +74,20 @@ public class FlightModel extends Model implements IModel {
     public List<Entity> loadAll() {
         return null;
     }
+
+    public void delete(String uuid) {
+        try{
+            File file = new File(path + uuid + ".out");
+            if(file.delete()){
+                System.out.println(file.getName() + "is deleted!");
+            } else { System.out.println("Delete operation is failed!"); }
+        }
+        catch(Exception exp){
+            exp.printStackTrace();
+        }
+    }
+
+    /*public void update(List<String> params) {
+
+    }*/
 }

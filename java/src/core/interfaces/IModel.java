@@ -13,4 +13,6 @@ public interface IModel {
     void save(Entity obj);
     Entity load(String uuid);
     List<Entity> loadAll();
+    void delete(String uuid);
+
 }
