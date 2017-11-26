@@ -77,10 +77,20 @@ public class FlightModel extends Model implements IModel {
 
     public void delete(String uuid) {
         try{
-            File file = new File(path + uuid + ".out");
-            if(file.delete()){
-                System.out.println(file.getName() + "is deleted!");
-            } else { System.out.println("Delete operation is failed!"); }
+            File dir = new File("C://FlightDir/");
+            File[] files = dir.listFiles(new FilenameFilter() {
+                @Override
+                public boolean accept(File dir, String name) {
+                    return name.matches(uuid + "_");
+                }
+            });
+            for (File file : files) {
+                if(file.delete()){
+                    System.out.println(file.getName() + "is deleted!");
+                } else { System.out.println("Delete operation is failed!"); }
+
+            }
+
         }
         catch(Exception exp){
             exp.printStackTrace();
