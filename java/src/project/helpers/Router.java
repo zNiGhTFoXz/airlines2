@@ -1,9 +1,5 @@
 package project.helpers;
 
-/*
-** Created by NiGhTFoX on 24.11.2017.
-*/
-
 import core.interfaces.IController;
 import project.controller.MenuController;
 
@@ -14,6 +10,7 @@ import java.util.Map;
 public final class Router {
     private static final String DEFAULT_CONTROLLER = "menu";
     private static final String DEFAULT_ACTION = "init";
+
     private static final String CONTROLLER_PREFIX = "Controller";
     private static final String CONTROLLER_PACKAGE = "project.controller";
 
@@ -66,7 +63,7 @@ public final class Router {
     }
 
     private String actionEventListener(Map<String, Map<String, String>> listOfActions){
-        return "menu/init";
+        return "menu/init"; /* This is stub */
     }
 
     private String prepareControllerName(final String name){

@@ -1,7 +1,3 @@
-/*
-** Created by NiGhTFoX on 24.11.2017.
-*/
-
 import project.helpers.LocationParser;
 import project.helpers.Router;
 

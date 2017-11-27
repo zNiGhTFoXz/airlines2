@@ -1,9 +1,5 @@
 package project.helpers;
 
-/*
-** Created by NiGhTFoX on 24.11.2017.
-*/
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;

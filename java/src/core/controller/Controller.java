@@ -1,9 +1,5 @@
 package core.controller;
 
-/*
-** Created by NiGhTFoX on 24.11.2017.
-*/
-
 import core.interfaces.IModel;
 
 public abstract class Controller{

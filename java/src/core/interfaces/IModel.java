@@ -1,11 +1,6 @@
 package core.interfaces;
 
-/*
-** Created by NiGhTFoX on 24.11.2017.
-*/
-
 import core.entity.Entity;
-import project.entity.Flight;
 
 import java.util.List;
 import java.util.Map;

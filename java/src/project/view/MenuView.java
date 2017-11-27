@@ -1,9 +1,5 @@
 package project.view;
 
-/*
-** Created by NiGhTFoX on 25.11.2017.
-*/
-
 import core.interfaces.IView;
 import core.view.View;
 
