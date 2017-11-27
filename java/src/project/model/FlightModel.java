@@ -8,11 +8,14 @@ import core.entity.Entity;
 import core.interfaces.IModel;
 import core.model.Model;
 import project.entity.Flight;
+import project.entity.Route;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -20,6 +23,10 @@ import java.util.UUID;
 
 public class FlightModel extends Model implements IModel {
     private Path path = Paths.get("C://FlightDir/");
+
+    private static String AIRBUS = "";
+    private static String NUMBER = "";
+
     @Override
     public void save(Entity obj) {
         try {
@@ -96,7 +103,7 @@ public class FlightModel extends Model implements IModel {
         }
     }
 
-    public void update(Map<String, String> params) {
+    public boolean update(Map<String, String> params) {
         try {
             if(Files.isDirectory(path)) {
                 String uuid = params.get("id");
@@ -113,14 +120,34 @@ public class FlightModel extends Model implements IModel {
                     FileInputStream fis = new FileInputStream(file.getPath());
                     ObjectInputStream oin = new ObjectInputStream(fis);
                     Flight flight = (Flight) oin.readObject();
-                    flight.setNumber(Long.parseLong(params.get("number")));
-                    flight.setAirbus(params.get("airbus"));
-                    //flight.setRoute(params.get("route"));
-                    //flight.setTimeFrom();
+
+                    if(params.get("number") != null) {
+                        flight.setNumber(Long.parseLong(params.get("number")));
+                    }
+
+                    if(params.get("airbus") != null) {
+                        flight.setAirbus(params.get("airbus"));
+                    }
+
+                    if(params.get("route") != null) {
+                        IModel model = new RouteModel();
+                        Route route = (Route) model.load(params.get("route"));
+                        flight.setRoute(route);
+
+                    } else { return false; }
+
+                    if(params.get("timefrom") != null) {
+                        SimpleDateFormat format = new SimpleDateFormat("dd MMM yyyy");
+                        Date timeFrom = format.parse(params.get("timefrom"));
+                        flight.setTimeFrom(timeFrom);
+                    }
+
+                    if(params.get("timepath") != null) {
+                        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+                        Date timePath = format.parse(params.get("timepath"));
+                        flight.setTimePath(timePath);
+                    }
                 }
-
-
-
 
             }
         }

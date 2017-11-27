@@ -75,5 +75,5 @@ public class RouteModel extends Model implements IModel{
     }
 
     public void delete(String uuid){}
-    public void update(Map<String, String> params) {}
+    public boolean update(Map<String, String> params) {}
 }

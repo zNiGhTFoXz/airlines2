@@ -15,5 +15,5 @@ public interface IModel {
     Entity load(String uuid);
     List<Entity> loadAll();
     void delete(String uuid);
-    void update(Map<String, String> params);
+    boolean update(Map<String, String> params);
 }
