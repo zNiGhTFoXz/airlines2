@@ -1,79 +1,75 @@
 package project.model;
 
-/*
-** Created by NiGhTFoX on 24.11.2017.
-*/
 
 import core.entity.Entity;
 import core.interfaces.IModel;
 import core.model.Model;
 import project.entity.Flight;
 import project.entity.Route;
+import project.helpers.property.FlightProperty;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
+
 
 
 public class FlightModel extends Model implements IModel {
-    private Path path = Paths.get("C://FlightDir/");
+    private Path path;
+    private String divider;
+    private String ext;
 
-    private static String AIRBUS = "";
-    private static String NUMBER = "";
+    public FlightModel() {
+        this.path = Paths.get("C://FlightDir/");
+        this.divider = "_";
+        this.ext = ".out";
+    }
 
     @Override
     public void save(Entity obj) {
-        try {
-            String filename = obj.getUuid().toString() + "_";
-            if(!Files.isDirectory(path)) {
-                Files.createDirectory(path);
+
+            String filename = obj.getUuid().toString() + this.divider;
+            if (!Files.isDirectory(path)) {
+                try {
+                    Files.createDirectory(path);
+                } catch (IOException exp){
+                    return; //TODO доделать
+                }
             }
-            if(((Flight)obj).getRoute() != null) {
+            if (((Flight) obj).getRoute() != null) {
                 filename += ((Flight) obj).getRoute().getUuid().toString();
             }
 
-            FileOutputStream fos = new FileOutputStream(path + filename +".out");
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(obj);
-            oos.flush();
-            oos.close();
-        }
-        catch (Exception exp){
-            exp.printStackTrace();
-        }
+            try {
+                writeObject(this.path + filename + this.ext, obj);
+            } catch (IOException exp){
+                return; //TODO доделать
+            }
 
     }
 
     @Override
     public Entity load(String uuid) {
-
-        try {
-            if(Files.isDirectory(path)) {
-                File dir = new File("C://FlightDir/");
-                File[] files = dir.listFiles(new FilenameFilter() {
-                    @Override
-                    public boolean accept(File dir, String name) {
-                        return name.matches(uuid + "_");
-                    }
-                });
-
-                for (File file : files) {
-                    FileInputStream fis = new FileInputStream(file.getPath());
-                    ObjectInputStream oin = new ObjectInputStream(fis);
-                    Flight flight = (Flight) oin.readObject();
-                    System.out.println("version:" + flight.getVersion());
-                }
-
-            }
+        if (!Files.isDirectory(path)){
+            return null;
         }
-        catch (Exception exp){
-            exp.printStackTrace();
+
+        File[] files = getFilesByMask(this.path.toString(), uuid);
+
+        for (File file : files) {
+            Flight flight;
+            try {
+                flight = (Flight) readObject(file.getPath());
+                return flight;
+            }catch (Exception exp){
+                return null;
+            }
         }
         return null;
     }
@@ -83,77 +79,84 @@ public class FlightModel extends Model implements IModel {
         return null;
     }
 
-    public void delete(String uuid) {
-        try{
-            File dir = new File("C://FlightDir/");
-            File[] files = dir.listFiles(new FilenameFilter() {
-                @Override
-                public boolean accept(File dir, String name) {
-                    return name.matches(uuid + "_");
-                }
-            });
-            for (File file : files) {
-                if(file.delete()){
-                    System.out.println(file.getName() + "is deleted!");
-                } else { System.out.println("Delete operation is failed!"); }
+    private File[] getFilesByMask(String path, String uuid){
+        File dir = new File(path);
+        File[] files = dir.listFiles(new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+                return name.matches(uuid + divider);
             }
-        }
-        catch(Exception exp){
-            exp.printStackTrace();
+        });
+        return files;
+    }
+
+    public void delete(String uuid) {
+        File[] files = getFilesByMask(this.path.toString(), uuid);
+
+        for (File file : files) {
+            if (!file.delete()) {
+                //TODO доделать
+            }
+
         }
     }
 
     public boolean update(Map<String, String> params) {
-        try {
-            if(Files.isDirectory(path)) {
-                String uuid = params.get("id");
 
-                File dir = new File("C://FlightDir/");
-                File[] files = dir.listFiles(new FilenameFilter() {
-                    @Override
-                    public boolean accept(File dir, String name) {
-                        return name.matches(uuid + "_");
-                    }
-                });
+        if (!Files.isDirectory(path)) {
+            return false;
+        }
+        String uuid = params.get(FlightProperty.UUID);
 
-                for (File file : files) {
-                    FileInputStream fis = new FileInputStream(file.getPath());
-                    ObjectInputStream oin = new ObjectInputStream(fis);
-                    Flight flight = (Flight) oin.readObject();
+        File[] files = getFilesByMask(this.path.toString(), uuid);
 
-                    if(params.get("number") != null) {
-                        flight.setNumber(Long.parseLong(params.get("number")));
-                    }
+        for (File file : files) {
+            Flight flight;
+            try {
+                flight = (Flight) readObject(file.getPath());
+            } catch (Exception exp) {
+                return false;
+            }
 
-                    if(params.get("airbus") != null) {
-                        flight.setAirbus(params.get("airbus"));
-                    }
+            if (params.containsKey(FlightProperty.NUMBER)) {
+                flight.setNumber(Long.parseLong(params.get(FlightProperty.NUMBER)));
+            }
 
-                    if(params.get("route") != null) {
-                        IModel model = new RouteModel();
-                        Route route = (Route) model.load(params.get("route"));
-                        flight.setRoute(route);
+            if (params.containsKey(FlightProperty.AIRBUS)) {
+                flight.setAirbus(params.get(FlightProperty.AIRBUS));
+            }
 
-                    } else { return false; }
+            if (params.containsKey(FlightProperty.ROUTE)) {
+                IModel model = new RouteModel();
+                Route route = (Route) model.load(params.get(FlightProperty.ROUTE));
+                if (route == null) {
+                    return false;
+                }
+                flight.setRoute(route);
+            }
 
-                    if(params.get("timefrom") != null) {
-                        SimpleDateFormat format = new SimpleDateFormat("dd MMM yyyy");
-                        Date timeFrom = format.parse(params.get("timefrom"));
-                        flight.setTimeFrom(timeFrom);
-                    }
-
-                    if(params.get("timepath") != null) {
-                        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
-                        Date timePath = format.parse(params.get("timepath"));
-                        flight.setTimePath(timePath);
-                    }
+            if (params.containsKey(FlightProperty.TIME_FROM)) {
+                SimpleDateFormat format = new SimpleDateFormat("dd MMM yyyy");
+                try {
+                    Date timeFrom = format.parse(params.get(FlightProperty.TIME_FROM));
+                    flight.setTimeFrom(timeFrom);
+                } catch (ParseException exp) {
+                    exp.printStackTrace();
                 }
 
             }
-        }
-        catch (Exception exp){
-            exp.printStackTrace();
+
+            if (params.containsKey(FlightProperty.TIME_PATH)) {
+                SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+                try {
+                    Date timePath = format.parse(params.get(FlightProperty.TIME_PATH));
+                    flight.setTimePath(timePath);
+                } catch (ParseException exp) {
+                    exp.printStackTrace();
+                }
+            }
         }
 
+        return true;
     }
 }

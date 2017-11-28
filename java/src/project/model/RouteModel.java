@@ -13,11 +13,12 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class RouteModel extends Model implements IModel{
-    private Path path = Paths.get("C://RouteDir/");
+    private Path path = Paths.get("RouteDir/");
     @Override
     public void save(Entity obj) {
         try {
@@ -40,40 +41,42 @@ public class RouteModel extends Model implements IModel{
 
     @Override
     public Entity load(String uuid) {
-        try {
-            if(Files.isDirectory(path)) {
-                /*File dir = new File("C://RouteDir/");
-                File[] files = dir.listFiles(new FilenameFilter() {
-                    @Override
-                    public boolean accept(File dir, String name) {
-                        return name.matches(uuid);
-                    }
-                });
+        //try {
+            if(!Files.isDirectory(path)) {
+                return null;
+            }
 
-                for (File file : files) {
-                    FileInputStream fis = new FileInputStream(file.getPath());
+             try {
+                    FileInputStream fis = new FileInputStream(path + uuid + ".out");
                     ObjectInputStream oin = new ObjectInputStream(fis);
                     Route route = (Route) oin.readObject();
-                    System.out.println("version:" + route.getVersion());
-                }*/
-                FileInputStream fis = new FileInputStream(path + uuid + "out");
-                ObjectInputStream oin = new ObjectInputStream(fis);
-                Route route = (Route) oin.readObject();
-                System.out.println("version:" + route.getVersion());
 
-            }
-        }
-        catch (Exception exp){
-            exp.printStackTrace();
-        }
-        return null;
+                    return route;
+                }catch (Exception exp){
+                    return null;
+                }
     }
 
     @Override
-    public List<Entity> loadAll() {
+    public List<Entity> loadAll(){
+        if(!Files.isDirectory(this.path)){
+            return new ArrayList<>();
+        }
+
+        File path = new File(this.path.toString());
+        File[] listOfFiles = path.listFiles();
+
+        for(File file : listOfFiles){
+            if(file.isFile()){
+                String fname = file.getName().substring(0, file.getName().indexOf('.'));
+            }
+        }
+
         return null;
     }
 
     public void delete(String uuid){}
-    public boolean update(Map<String, String> params) {}
+    public boolean update(Map<String, String> params) {
+        return false;
+    }
 }

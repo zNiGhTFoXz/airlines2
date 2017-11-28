@@ -8,8 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public final class Router {
-    private static final String DEFAULT_CONTROLLER = "menu";
-    private static final String DEFAULT_ACTION = "init";
+    private static final String DEFAULT_CONTROLLER = "route";//menu
+    private static final String DEFAULT_ACTION = "init";//init
 
     private static final String CONTROLLER_PREFIX = "Controller";
     private static final String CONTROLLER_PACKAGE = "project.controller";

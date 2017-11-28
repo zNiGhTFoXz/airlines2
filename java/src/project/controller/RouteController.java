@@ -1,9 +1,12 @@
 package project.controller;
 
 import core.controller.Controller;
+import core.entity.Entity;
 import core.interfaces.IController;
+import project.entity.Route;
 import project.model.RouteModel;
 
+import java.util.List;
 import java.util.Map;
 
 public class RouteController extends Controller implements IController{
@@ -14,7 +17,8 @@ public class RouteController extends Controller implements IController{
 
     @Override
     public Map<String, Map<String, String>> init() {
-        return null;
+        List<Entity> listOfRoutes = this.model.loadAll();
+        return  null;
     }
 
     @Override
