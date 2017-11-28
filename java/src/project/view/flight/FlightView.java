@@ -1,4 +1,4 @@
-package project.view;
+package project.view.flight;
 
 import core.interfaces.IView;
 import core.view.View;

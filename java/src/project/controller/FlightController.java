@@ -1,9 +1,12 @@
 package project.controller;
 
 import core.controller.Controller;
+import core.entity.Entity;
 import core.interfaces.IController;
 import project.model.FlightModel;
+import project.view.flight.FlightMainView;
 
+import java.util.List;
 import java.util.Map;
 
 public class FlightController extends Controller implements IController{
@@ -14,6 +17,9 @@ public class FlightController extends Controller implements IController{
 
     @Override
     public Map<String, Map<String, String>> init() {
+        List<Entity> listOfFlights = this.model.loadAll();
+        FlightMainView view = new FlightMainView();
+        view.init(listOfFlights);
         return null;
     }
 

@@ -8,12 +8,14 @@ import project.entity.Flight;
 import project.entity.Route;
 import project.helpers.property.FlightProperty;
 
-import java.io.*;
+import java.io.File;
+import java.io.FilenameFilter;
+import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -21,12 +23,12 @@ import java.util.Map;
 
 
 public class FlightModel extends Model implements IModel {
-    private Path path;
+    private String path;
     private String divider;
     private String ext;
 
     public FlightModel() {
-        this.path = Paths.get("C://FlightDir/");
+        this.path = "FlightDir/";
         this.divider = "_";
         this.ext = ".out";
     }
@@ -34,16 +36,16 @@ public class FlightModel extends Model implements IModel {
     @Override
     public void save(Entity obj) {
 
-            String filename = obj.getUuid().toString() + this.divider;
-            if (!Files.isDirectory(path)) {
+            String filename = obj.getUUID().toString() + this.divider;
+            if (!Files.isDirectory(Paths.get(this.path))) {
                 try {
-                    Files.createDirectory(path);
+                    Files.createDirectory(Paths.get(this.path));
                 } catch (IOException exp){
                     return; //TODO доделать
                 }
             }
             if (((Flight) obj).getRoute() != null) {
-                filename += ((Flight) obj).getRoute().getUuid().toString();
+                filename += ((Flight) obj).getRoute().getUUID().toString();
             }
 
             try {
@@ -56,11 +58,11 @@ public class FlightModel extends Model implements IModel {
 
     @Override
     public Entity load(String uuid) {
-        if (!Files.isDirectory(path)){
+        if (!Files.isDirectory(Paths.get(this.path))){
             return null;
         }
 
-        File[] files = getFilesByMask(this.path.toString(), uuid);
+        File[] files = getFilesByMask(this.path, uuid);
 
         for (File file : files) {
             Flight flight;
@@ -76,22 +78,37 @@ public class FlightModel extends Model implements IModel {
 
     @Override
     public List<Entity> loadAll() {
-        return null;
+        List<Entity> list = new ArrayList<>();
+
+        File folder = new File(this.path);
+        File[] listOfFiles = folder.listFiles();
+
+        for(File file : listOfFiles){
+            if(file.isFile()){
+                String filename= file.getName().substring(0, file.getName().indexOf('_'));
+                Entity flightObject = load(filename);
+                if(flightObject != null){
+                    list.add(flightObject);
+                }
+            }
+        }
+
+        return list;
     }
 
     private File[] getFilesByMask(String path, String uuid){
-        File dir = new File(path);
+        File dir = new File(this.path);
         File[] files = dir.listFiles(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
-                return name.matches(uuid + divider);
+                return name.startsWith(uuid+divider);
             }
         });
         return files;
     }
 
     public void delete(String uuid) {
-        File[] files = getFilesByMask(this.path.toString(), uuid);
+        File[] files = getFilesByMask(this.path, uuid);
 
         for (File file : files) {
             if (!file.delete()) {
@@ -103,12 +120,12 @@ public class FlightModel extends Model implements IModel {
 
     public boolean update(Map<String, String> params) {
 
-        if (!Files.isDirectory(path)) {
+        if (!Files.isDirectory(Paths.get(this.path))) {
             return false;
         }
         String uuid = params.get(FlightProperty.UUID);
 
-        File[] files = getFilesByMask(this.path.toString(), uuid);
+        File[] files = getFilesByMask(this.path, uuid);
 
         for (File file : files) {
             Flight flight;
