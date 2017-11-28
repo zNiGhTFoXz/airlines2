@@ -1,6 +1,5 @@
 package project.model;
 
-
 import core.entity.Entity;
 import core.interfaces.IModel;
 import core.model.Model;
