@@ -1,9 +1,5 @@
 package core.model;
 
-/*
-** Created by NiGhTFoX on 24.11.2017.
-*/
-
 import core.entity.Entity;
 import project.entity.Flight;
 

@@ -61,7 +61,7 @@ public class FlightModel extends Model implements IModel {
             return null;
         }
 
-        File[] files = getFilesByMask(this.path, uuid);
+        File[] files = getFilesByMask(uuid);
 
         for (File file : files) {
             Flight flight;
@@ -95,7 +95,7 @@ public class FlightModel extends Model implements IModel {
         return list;
     }
 
-    private File[] getFilesByMask(String path, String uuid){
+    private File[] getFilesByMask(String uuid){
         File dir = new File(this.path);
         File[] files = dir.listFiles(new FilenameFilter() {
             @Override
@@ -107,7 +107,7 @@ public class FlightModel extends Model implements IModel {
     }
 
     public void delete(String uuid) {
-        File[] files = getFilesByMask(this.path, uuid);
+        File[] files = getFilesByMask(uuid);
 
         for (File file : files) {
             if (!file.delete()) {
@@ -124,7 +124,7 @@ public class FlightModel extends Model implements IModel {
         }
         String uuid = params.get(FlightProperty.UUID);
 
-        File[] files = getFilesByMask(this.path, uuid);
+        File[] files = getFilesByMask(uuid);
 
         for (File file : files) {
             Flight flight;
