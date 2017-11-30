@@ -9,9 +9,9 @@ import java.util.Map;
 public interface IModel {
     boolean create(final Map<String, String> params);
     boolean save(final Entity obj);
-    Entity load(final String uuid);
+    Entity load(final Map<String, String> params);
     List<Entity> loadAll();
-    boolean delete(final String uuid);
+    boolean delete(final Map<String, String> params);
     boolean update(final Map<String, String> params);
     File[] getFilesByMask(final String uuid);
 }

@@ -7,8 +7,8 @@ import project.model.FlightModel;
 import project.view.flight.FlightCreateView;
 import project.view.flight.FlightMainView;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class FlightController extends Controller implements IController{
 
@@ -29,7 +29,7 @@ public class FlightController extends Controller implements IController{
     }
 
     @Override
-    public String get(String id) {
+    public String get(HashMap<String, String> params) {
         return null;
     }
 
@@ -41,7 +41,7 @@ public class FlightController extends Controller implements IController{
     }
 
     @Override
-    public String create(Map<String, String> params){
+    public String create(HashMap<String, String> params){
         boolean result = this.model.create(params);
 
         FlightCreateView view = new FlightCreateView();
@@ -53,12 +53,12 @@ public class FlightController extends Controller implements IController{
     }
 
     @Override
-    public String delete(String id) {
+    public String delete(HashMap<String, String> params) {
         return null;
     }
 
     @Override
-    public String update(String id) {
+    public String update(HashMap<String, String> params) {
         return null;
     }
 }

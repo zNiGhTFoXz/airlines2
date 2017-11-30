@@ -5,7 +5,7 @@ import core.interfaces.IController;
 import project.model.MenuModel;
 import project.view.MenuView;
 
-import java.util.Map;
+import java.util.HashMap;
 
 public class MenuController extends Controller implements IController{
 
@@ -26,7 +26,7 @@ public class MenuController extends Controller implements IController{
     }
 
     @Override
-    public String get(String id) {
+    public String get(HashMap<String, String> params) {
         return null;
     }
 
@@ -36,17 +36,17 @@ public class MenuController extends Controller implements IController{
     }
 
     @Override
-    public String delete(String id) {
+    public String delete(HashMap<String, String> params) {
         return null;
     }
 
     @Override
-    public String update(String id) {
+    public String update(HashMap<String, String> params) {
         return null;
     }
 
     @Override
-    public String create(Map<String, String> params) {
+    public String create(HashMap<String, String> params) {
         return null;
     }
 }

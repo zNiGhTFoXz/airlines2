@@ -46,7 +46,7 @@ public final class LocationParser {
     private Map<String, String> parse(String query){
         Map<String, String > paramsMap = new HashMap<>();
         // name=value
-        String regExp = "([a-zA-Z-]+)=([a-zA-Z-.]+)";
+        String regExp = "([a-zA-Z-]+)=([a-zA-Z0-9-.]+)";
 
         Pattern pattern = Pattern.compile(regExp);
         Matcher matcher = pattern.matcher(query);

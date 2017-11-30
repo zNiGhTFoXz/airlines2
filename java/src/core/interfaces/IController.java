@@ -1,15 +1,15 @@
 package core.interfaces;
 
-import java.util.Map;
+import java.util.HashMap;
 
 public interface IController {
     String init();
 
     String get();
-    String get(String id);
+    String get(HashMap<String, String> params);
 
     String create();
-    String delete(String id);
-    String update(String id);
-    String create(Map<String, String> params);
+    String delete(HashMap<String, String> params);
+    String update(HashMap<String, String> params);
+    String create(HashMap<String, String> params);
 }

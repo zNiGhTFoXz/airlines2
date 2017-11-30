@@ -14,10 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class FlightModel extends Model implements IModel {
     private String path;
@@ -48,7 +45,9 @@ public class FlightModel extends Model implements IModel {
 
         if (params.containsKey(FlightProperty.ROUTE)) {
             IModel model = new RouteModel();
-            Route route = (Route) model.load(params.get(FlightProperty.ROUTE));
+            Map<String, String> routeParams = new HashMap<>();
+            routeParams.put(FlightProperty.UUID, params.get(FlightProperty.ROUTE));
+            Route route = (Route) model.load(routeParams);
             if (route == null) {
                 return false; //Route was presented but not found
             }
@@ -105,12 +104,17 @@ public class FlightModel extends Model implements IModel {
     }
 
     @Override
-    public Entity load(final String uuid) {
+    public Entity load(final Map<String, String> params) {
+
+        if(!params.containsKey(FlightProperty.UUID)){
+            return null;
+        }
+
         if (!Files.isDirectory(Paths.get(this.path))){
             return null; //Error. Can't load from non existing directory
         }
 
-        File[] files = getFilesByMask(uuid);
+        File[] files = getFilesByMask(params.get(FlightProperty.UUID));
 
         if(files.length > 0){
             Flight flight;
@@ -140,7 +144,9 @@ public class FlightModel extends Model implements IModel {
             if(file.isFile()){
                 //uuid_
                 String filename= file.getName().substring(0, file.getName().indexOf('_'));
-                Entity flightObject = load(filename);
+                Map<String, String> params = new HashMap<>();
+                params.put(FlightProperty.UUID, filename);
+                Entity flightObject = load(params);
                 if(flightObject != null){
                     list.add(flightObject);
                 }
@@ -168,8 +174,13 @@ public class FlightModel extends Model implements IModel {
     }
 
     @Override
-    public boolean delete(final String uuid) {
-        File[] files = getFilesByMask(uuid);
+    public boolean delete(final Map<String, String> params) {
+
+        if(!params.containsKey(FlightProperty.UUID)){
+            return false;
+        }
+
+        File[] files = getFilesByMask(params.get(FlightProperty.UUID));
 
         if(files.length > 0){
             return files[0].delete();
@@ -216,7 +227,9 @@ public class FlightModel extends Model implements IModel {
 
             if (params.containsKey(FlightProperty.ROUTE)) {
                 IModel model = new RouteModel();
-                Route route = (Route) model.load(params.get(FlightProperty.ROUTE));
+                Map<String, String> routeParams = new HashMap<>();
+                routeParams.put(FlightProperty.UUID, params.get(FlightProperty.ROUTE));
+                Route route = (Route) model.load(routeParams);
                 if (route == null) {
                     return false; //Error. Can't update with not existed Route
                 }

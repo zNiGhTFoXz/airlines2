@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -63,12 +64,16 @@ public class RouteModel extends Model implements IModel{
     }
 
     @Override
-    public Entity load(final String uuid) {
+    public Entity load(final Map<String, String> params) {
+        if(!params.containsKey(RouteProperty.UUID)){
+            return null;
+        }
+
         if (!Files.isDirectory(Paths.get(this.path))){
             return null; //Error. Can't load from non existing directory
         }
 
-        File[] files = getFilesByMask(uuid);
+        File[] files = getFilesByMask(params.get(RouteProperty.UUID));
 
         if(files.length > 0){
             Route route;
@@ -98,7 +103,9 @@ public class RouteModel extends Model implements IModel{
             if(file.isFile()){
                 //filename without extension
                 String filename = file.getName().substring(0, file.getName().indexOf('.'));
-                Entity routeObject = load(filename);
+                Map<String, String> params = new HashMap<>();
+                params.put(RouteProperty.UUID, filename);
+                Entity routeObject = load(params);
                 if(routeObject != null){
                     list.add(routeObject);
                 }
@@ -126,8 +133,12 @@ public class RouteModel extends Model implements IModel{
     }
 
     @Override
-    public boolean delete(final String uuid){
-        File[] files = getFilesByMask(uuid);
+    public boolean delete(final Map<String, String> params){
+        if(!params.containsKey(RouteProperty.UUID)){
+            return false;
+        }
+
+        File[] files = getFilesByMask(params.get(RouteProperty.UUID));
 
         if(files.length > 0){
             return files[0].delete();

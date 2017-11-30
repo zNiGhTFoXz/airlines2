@@ -11,17 +11,17 @@ import java.util.Map;
 public class MenuModel extends Model implements IModel{
 
     @Override
-    public boolean create(final Map<String, String> params) {
+    public boolean create(Map<String, String> params) {
         return false;
     }
 
     @Override
-    public boolean save(final Entity obj) {
+    public boolean save(Entity obj) {
         return false;
     }
 
     @Override
-    public Entity load(final String uuid) {
+    public Entity load(Map<String, String> params) {
         return null;
     }
 
@@ -31,17 +31,17 @@ public class MenuModel extends Model implements IModel{
     }
 
     @Override
-    public boolean delete(final String uuid) {
+    public boolean delete(Map<String, String> params) {
         return false;
     }
 
     @Override
-    public boolean update(final Map<String, String> params) {
+    public boolean update(Map<String, String> params) {
         return false;
     }
 
     @Override
-    public File[] getFilesByMask(final String uuid) {
+    public File[] getFilesByMask(String uuid) {
         return new File[0];
     }
 }

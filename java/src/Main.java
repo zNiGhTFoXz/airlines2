@@ -1,7 +1,10 @@
+import project.helpers.LocationParser;
 import project.helpers.Router;
 
 public class Main {
     public static void main (String args[]){
+        //test1();
+
         Router router = new Router();
         try {
             router.start();
@@ -10,13 +13,12 @@ public class Main {
         }
     }
 
-    /*private static void test1(){
+    private static void test1(){
         String [] locations = {
-                "controller/action?id=&id2=test2$=test3",
-                "controller/action",
-                "controller/action?",
-                "controller/action?id=test1&id2=test2&id3=test3",
-                "controller/action?id=&id2=&id3=test3",
+            "Flight/init",
+            "Route/init",
+            "Route/show?uuid=054d3d7f-a1d8-485c-a3d5-a0c735624982",
+            "Flight/show?uuid=0bc17aae-ed78-4d96-8d80-848b2e9e8154",
         };
 
         for(String location : locations) {
@@ -33,5 +35,5 @@ public class Main {
             }
             System.out.println();
         }
-    }*/
+    }
 }

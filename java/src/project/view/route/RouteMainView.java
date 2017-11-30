@@ -51,7 +51,7 @@ public class RouteMainView extends View {
                 do {
                     b = scanner.nextInt();
                 }while (b<1 && b>list.size());
-                return "Route/show?"+ RouteProperty.UUID+"="+list.get(b-1).getUUID();
+                return "Route/get?"+ RouteProperty.UUID+"="+list.get(b-1).getUUID();
             case 0:
                 return "menu/init";
         }

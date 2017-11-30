@@ -3,12 +3,14 @@ package project.controller;
 import core.controller.Controller;
 import core.entity.Entity;
 import core.interfaces.IController;
+import project.entity.Route;
 import project.model.RouteModel;
 import project.view.route.RouteCreateView;
 import project.view.route.RouteMainView;
+import project.view.route.RouteShowView;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class RouteController extends Controller implements IController{
 
@@ -30,8 +32,11 @@ public class RouteController extends Controller implements IController{
     }
 
     @Override
-    public String get(String id) {
-        return null;
+    public String get(HashMap<String, String> params) {
+        RouteShowView view = new RouteShowView();
+        Route obj = (Route) model.load(params);
+        return view.init(obj);
+
     }
 
     @Override
@@ -42,17 +47,17 @@ public class RouteController extends Controller implements IController{
     }
 
     @Override
-    public String delete(String id) {
+    public String delete(HashMap<String, String> params) {
         return null;
     }
 
     @Override
-    public String update(String id) {
+    public String update(HashMap<String, String> params) {
         return null;
     }
 
     @Override
-    public String create(Map<String, String> params) {
+    public String create(HashMap<String, String> params) {
         RouteCreateView view = new RouteCreateView();
         boolean result = this.model.create(params);
 
