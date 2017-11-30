@@ -28,7 +28,18 @@ public class RouteModel extends Model implements IModel{
 
     @Override
     public String create(Map<String, String> params) {
-        return null;
+        Route route = new Route();
+
+        if (params.containsKey(RouteProperty.FLIGHT_FROM)){
+            route.setFlightFrom(params.get(RouteProperty.FLIGHT_FROM));
+        }
+        if (params.containsKey(RouteProperty.FLIGHT_TO)){
+            route.setFlightTo(params.get(RouteProperty.FLIGHT_TO));
+        }
+
+        save(route);
+
+        return route.getUUID().toString();
     }
 
     @Override

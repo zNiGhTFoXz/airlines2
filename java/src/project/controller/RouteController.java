@@ -5,6 +5,8 @@ import core.entity.Entity;
 import core.interfaces.IController;
 import project.entity.Route;
 import project.model.RouteModel;
+import project.view.route.RouteCreateView;
+import project.view.route.RouteMainView;
 
 import java.util.List;
 import java.util.Map;
@@ -18,7 +20,8 @@ public class RouteController extends Controller implements IController{
     @Override
     public String init() {
         List<Entity> listOfRoutes = this.model.loadAll();
-        return  null;
+        RouteMainView view = new RouteMainView();
+        return view.init(listOfRoutes);
     }
 
     @Override
@@ -33,7 +36,9 @@ public class RouteController extends Controller implements IController{
 
     @Override
     public String create() {
-        return null;
+        RouteCreateView view = new RouteCreateView();
+
+        return view.init();
     }
 
     @Override
@@ -48,6 +53,15 @@ public class RouteController extends Controller implements IController{
 
     @Override
     public String create(Map<String, String> params) {
+        String result = this.model.create(params);
+
+        RouteCreateView view = new RouteCreateView();
+        if (result != null){
+            view.success(result);
+        } else {
+            view.error();
+        }
+
         return null;
     }
 
