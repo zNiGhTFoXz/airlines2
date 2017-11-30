@@ -32,6 +32,53 @@ public class FlightModel extends Model implements IModel {
         this.ext = ".out";
     }
 
+    public String create(Map<String, String> params){
+        Flight flight = new Flight();
+
+        if (params.containsKey(FlightProperty.NUMBER)) {
+            flight.setNumber(Long.parseLong(params.get(FlightProperty.NUMBER)));
+        }
+
+        if (params.containsKey(FlightProperty.AIRBUS)) {
+            flight.setAirbus(params.get(FlightProperty.AIRBUS));
+        }
+
+        if (params.containsKey(FlightProperty.ROUTE)) {
+            IModel model = new RouteModel();
+            Route route = (Route) model.load(params.get(FlightProperty.ROUTE));
+            if (route == null) {
+                return null;
+            }
+            flight.setRoute(route);
+        }
+
+        if (params.containsKey(FlightProperty.TIME_FROM)) {
+            SimpleDateFormat format = new SimpleDateFormat("dd MMM yyyy");
+            try {
+                Date timeFrom = format.parse(params.get(FlightProperty.TIME_FROM));
+                flight.setTimeFrom(timeFrom);
+            } catch (ParseException exp) {
+                exp.printStackTrace();
+            }
+
+        }
+
+        if (params.containsKey(FlightProperty.TIME_PATH)) {
+            SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+            try {
+                Date timePath = format.parse(params.get(FlightProperty.TIME_PATH));
+                flight.setTimePath(timePath);
+            } catch (ParseException exp) {
+                exp.printStackTrace();
+            }
+        }
+
+        save(flight);
+
+        return flight.getUUID().toString();
+
+    }
+
     @Override
     public void save(Entity obj) {
 

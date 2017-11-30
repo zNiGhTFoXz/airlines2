@@ -3,14 +3,16 @@ package core.interfaces;
 import java.util.Map;
 
 public interface IController {
-    Map<String, Map<String, String>> init();
+    String init();
 
-    Map<String, Map<String, String>> get();
-    Map<String, Map<String, String>> get(String id);
+    String get();
+    String get(String id);
 
-    Map<String, Map<String, String>> create();
-    Map<String, Map<String, String>> delete(String id);
-    Map<String, Map<String, String>> update(String id);
+    String create();
+    String delete(String id);
+    String update(String id);
+    String create(Map<String, String> params);
+
 
     void setLastAction(String lastAction);
 }

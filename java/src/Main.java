@@ -1,8 +1,15 @@
+import project.entity.Route;
 import project.helpers.LocationParser;
 import project.helpers.Router;
+import project.model.RouteModel;
+import project.view.flight.FlightCreateView;
+import project.view.flight.FlightMainView;
 
 public class Main {
     public static void main (String args[]){
+        RouteModel route = new RouteModel();
+        route.save(new Route());
+
         Router router = new Router();
         try {
             router.start();

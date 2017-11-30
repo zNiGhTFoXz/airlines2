@@ -5,9 +5,11 @@ import core.interfaces.IView;
 import core.view.View;
 import project.entity.Flight;
 import project.entity.Route;
+import project.helpers.property.FlightProperty;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 public class FlightMainView extends View implements IView{
 
@@ -19,7 +21,7 @@ public class FlightMainView extends View implements IView{
     public void print(String tpl, String[] params, boolean newLine) {
     }
 
-    public Map<String, Map<String, String>> init(List<Entity> list){
+    public String init(List<Entity> list){
         System.out.println("-- # FLIGHTS # --\n");
 
         if(list.isEmpty()){
@@ -52,11 +54,30 @@ public class FlightMainView extends View implements IView{
 
         System.out.println("\nMenu:");
         System.out.println("[1] - Create New");
-        System.out.println("[2] - Edit By ID");
+        System.out.println("[2] - Show By ID");
         System.out.println("[0] - Back");
 
-        System.out.println("\n*Type action number and data (if needed) with whitespace as divider*\n");
+        Scanner scanner = new Scanner(System.in);
+        int b = scanner.nextInt();
+        while (b<0 || b > 2){
+            System.out.println("Incorrect value");
+            b = scanner.nextInt();
+        }
+        switch (b) {
+            case 1:
+                return "Flight/create";
+            case 2:
+                System.out.println("Type ID: ");
+                do {
+                    b = scanner.nextInt();
+                }while (b<1 && b>list.size());
+                return "Flight/show?"+FlightProperty.UUID+"="+list.get(b-1).getUUID();
+            case 0:
+                return "menu/init";
+        }
 
-        return null;
+       // System.out.println("\n*Type action number and data (if needed) with whitespace as divider*\n");
+
+        return "Flight/init";
     }
 }

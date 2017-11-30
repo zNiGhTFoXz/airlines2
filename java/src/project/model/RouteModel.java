@@ -27,6 +27,11 @@ public class RouteModel extends Model implements IModel{
 
 
     @Override
+    public String create(Map<String, String> params) {
+        return null;
+    }
+
+    @Override
     public void save(Entity obj) {
 
             String filename = obj.getUUID().toString();

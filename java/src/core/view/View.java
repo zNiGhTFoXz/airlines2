@@ -1,6 +1,11 @@
 package core.view;
 
 public abstract class View {
+
+    public View(){
+        clear();
+    }
+
     public void clear(){
         try
         {

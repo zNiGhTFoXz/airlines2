@@ -16,33 +16,38 @@ public class RouteController extends Controller implements IController{
     }
 
     @Override
-    public Map<String, Map<String, String>> init() {
+    public String init() {
         List<Entity> listOfRoutes = this.model.loadAll();
         return  null;
     }
 
     @Override
-    public Map<String, Map<String, String>> get() {
+    public String get() {
         return null;
     }
 
     @Override
-    public Map<String, Map<String, String>> get(String id) {
+    public String get(String id) {
         return null;
     }
 
     @Override
-    public Map<String, Map<String, String>> create() {
+    public String create() {
         return null;
     }
 
     @Override
-    public Map<String, Map<String, String>> delete(String id) {
+    public String delete(String id) {
         return null;
     }
 
     @Override
-    public Map<String, Map<String, String>> update(String id) {
+    public String update(String id) {
+        return null;
+    }
+
+    @Override
+    public String create(Map<String, String> params) {
         return null;
     }
 

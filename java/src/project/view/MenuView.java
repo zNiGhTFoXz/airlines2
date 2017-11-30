@@ -5,8 +5,16 @@ import core.view.View;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
+
+import static javafx.application.Platform.exit;
 
 public class MenuView extends View implements IView {
+
+    public MenuView(){
+        clear();
+    }
+
     @Override
     public void print(String tpl, String[] params, boolean newLine) {
         if (newLine){
@@ -16,37 +24,34 @@ public class MenuView extends View implements IView {
         }
     }
 
-    public Map<String, Map<String, String>> init(){
-        String tpl = "\t[%s]: %s";
+    public String init(){
+        System.out.println("--- # Menu # ---\n");
+        System.out.println("[1]: Route");
+        System.out.println("[2]: Flight");
+        System.out.println("[0]: Exit");
 
-        clear();
-        print("\t\t--- # %s # ---\n", new String[]{ "Menu" }, true);
+        Scanner scanner = new Scanner(System.in);
+        do{
+            System.out.println("Type action ID: ");
+            try {
+                int b = scanner.nextInt();
+                if (b < 0 || b > 2) {
+                    System.out.println("Incorrect value");
+                } else {
+                    switch (b) {
+                        case 1:
+                            return "Route/init";
+                        case 2:
+                            return "Flight/init";
+                        case 0:
+                            System.exit(0);
+                    }
+                }
+            }catch (Exception exp){
+                break;
+            }
+        }while (true);
 
-        Map<String, Map<String, String>> actions = new HashMap<>();
-
-        Map<String, String> action1 = new HashMap<>();
-        action1.put("location","route/init");
-        action1.put("title", "Route");
-
-        Map<String, String> action2 = new HashMap<>();
-        action2.put("location","flight/init");
-        action2.put("title", "Flight");
-
-        Map<String, String> action3 = new HashMap<>();
-        action3.put("location", "menu/exit");
-        action3.put("title", "Exit");
-
-        actions.put("1", action1);
-        actions.put("2", action2);
-        actions.put("3", action3);
-
-        for(Map.Entry<String, Map<String, String>> entry : actions.entrySet()) {
-            String key = entry.getKey();
-            Map<String, String> value = entry.getValue();
-
-            print(tpl, new String[]{ key,value.get("title") }, true);
-        }
-
-        return actions;
+        return "menu/init";
     }
 }

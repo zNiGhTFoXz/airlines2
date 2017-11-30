@@ -10,6 +10,11 @@ import java.util.Map;
 public class MenuModel extends Model implements IModel{
 
     @Override
+    public String create(Map<String, String> params) {
+        return null;
+    }
+
+    @Override
     public void save(Entity obj) {
 
     }
