@@ -1,7 +1,5 @@
 package project.view.flight;
 
-import core.entity.Entity;
-import core.interfaces.IView;
 import core.view.View;
 import project.entity.Flight;
 import project.entity.Route;
@@ -9,11 +7,7 @@ import project.helpers.property.FlightProperty;
 
 import java.util.Scanner;
 
-public class FlightShowView extends View implements IView {
-    @Override
-    public void print(String tpl, String[] params, boolean newLine) {
-
-    }
+public class FlightShowView extends View {
 
     public String init(Flight flight){
         Scanner scanner = new Scanner(System.in);
@@ -55,6 +49,7 @@ public class FlightShowView extends View implements IView {
             case 0:
                 return "Flight/init";
         }
+
         return null;
     }
 }

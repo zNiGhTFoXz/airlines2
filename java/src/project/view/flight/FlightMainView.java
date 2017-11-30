@@ -1,24 +1,18 @@
 package project.view.flight;
 
 import core.entity.Entity;
-import core.interfaces.IView;
 import core.view.View;
 import project.entity.Flight;
 import project.entity.Route;
 import project.helpers.property.FlightProperty;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
-public class FlightMainView extends View implements IView{
+public class FlightMainView extends View {
 
     public FlightMainView(){
 
-    }
-
-    @Override
-    public void print(String tpl, String[] params, boolean newLine) {
     }
 
     public String init(List<Entity> list){
@@ -48,7 +42,6 @@ public class FlightMainView extends View implements IView{
                 System.out.printf("[From]: %s\t", route.getFlightFrom());
                 System.out.printf("[To]: %s", route.getFlightTo());
             }
-
             System.out.println();
         }
 
@@ -63,6 +56,7 @@ public class FlightMainView extends View implements IView{
             System.out.println("Incorrect value");
             b = scanner.nextInt();
         }
+
         switch (b) {
             case 1:
                 return "Flight/create";
@@ -75,8 +69,6 @@ public class FlightMainView extends View implements IView{
             case 0:
                 return "menu/init";
         }
-
-       // System.out.println("\n*Type action number and data (if needed) with whitespace as divider*\n");
 
         return "Flight/init";
     }

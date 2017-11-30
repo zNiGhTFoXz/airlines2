@@ -1,27 +1,13 @@
 package project.view;
 
-import core.interfaces.IView;
 import core.view.View;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
-import static javafx.application.Platform.exit;
-
-public class MenuView extends View implements IView {
+public class MenuView extends View{
 
     public MenuView(){
-        clear();
-    }
 
-    @Override
-    public void print(String tpl, String[] params, boolean newLine) {
-        if (newLine){
-            System.out.printf(tpl + "\n", params);
-        }else{
-            System.out.printf(tpl, params);
-        }
     }
 
     public String init(){
@@ -31,6 +17,7 @@ public class MenuView extends View implements IView {
         System.out.println("[0]: Exit");
 
         Scanner scanner = new Scanner(System.in);
+
         do{
             System.out.println("Type action ID: ");
             try {

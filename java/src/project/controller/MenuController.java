@@ -49,13 +49,4 @@ public class MenuController extends Controller implements IController{
     public String create(Map<String, String> params) {
         return null;
     }
-
-    @Override
-    public void setLastAction(String lastAction) {
-
-    }
-
-    public void exit(){
-        exit();
-    }
 }

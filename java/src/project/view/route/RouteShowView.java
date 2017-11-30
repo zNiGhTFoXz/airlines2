@@ -1,17 +1,12 @@
 package project.view.route;
 
-import core.interfaces.IView;
 import core.view.View;
 import project.entity.Route;
 import project.helpers.property.RouteProperty;
 
 import java.util.Scanner;
 
-public class RouteShowView extends View implements IView {
-    @Override
-    public void print(String tpl, String[] params, boolean newLine) {
-
-    }
+public class RouteShowView extends View {
 
     public String init(Route route){
         Scanner scanner = new Scanner(System.in);

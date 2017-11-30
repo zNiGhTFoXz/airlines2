@@ -7,7 +7,6 @@ import java.util.regex.Pattern;
 
 public final class LocationParser {
     private String location;
-    private String backLocation;
     private String controller;
     private String action;
     private Map<String, String> params;

@@ -1,20 +1,13 @@
 package project.view.route;
 
-import core.interfaces.IView;
 import core.view.View;
 import project.helpers.property.RouteProperty;
 
 import java.util.Scanner;
 
-public class RouteCreateView extends View implements IView {
-
-    @Override
-    public void print(String tpl, String[] params, boolean newLine) {
-
-    }
+public class RouteCreateView extends View {
 
     public String init() {
-        boolean flag = true;
         do {
             System.out.println("---- CREATE ROUTE -----");
             Scanner scanner = new Scanner(System.in); // получаем InputStream
@@ -51,25 +44,22 @@ public class RouteCreateView extends View implements IView {
                 case 0:
                     return "Route/init";
             }
-
-        } while (flag);
-        return null;
+        } while (true);
     }
 
-    public String success(String uuid) {
-        System.out.println("Successful created " + uuid);
+    public String success() {
+        System.out.println("Successful created!");
         System.out.println("Press any key!");
         (new Scanner(System.in)).next();
-        return "Route/init";
 
+        return "Route/init";
     }
 
     public String error() {
         System.out.println("Error");
         System.out.println("Press any key!");
         (new Scanner(System.in)).next();
+
         return "Route/init";
-
     }
-
 }

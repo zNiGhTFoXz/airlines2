@@ -3,7 +3,6 @@ package project.controller;
 import core.controller.Controller;
 import core.entity.Entity;
 import core.interfaces.IController;
-import project.entity.Route;
 import project.model.RouteModel;
 import project.view.route.RouteCreateView;
 import project.view.route.RouteMainView;
@@ -21,6 +20,7 @@ public class RouteController extends Controller implements IController{
     public String init() {
         List<Entity> listOfRoutes = this.model.loadAll();
         RouteMainView view = new RouteMainView();
+
         return view.init(listOfRoutes);
     }
 
@@ -53,20 +53,13 @@ public class RouteController extends Controller implements IController{
 
     @Override
     public String create(Map<String, String> params) {
-        String result = this.model.create(params);
-
         RouteCreateView view = new RouteCreateView();
-        if (result != null){
-            view.success(result);
+        boolean result = this.model.create(params);
+
+        if (result){
+            return view.success();
         } else {
-            view.error();
+            return view.error();
         }
-
-        return null;
-    }
-
-    @Override
-    public void setLastAction(String lastAction) {
-
     }
 }

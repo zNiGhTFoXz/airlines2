@@ -1,23 +1,16 @@
 package project.view.route;
 
 import core.entity.Entity;
-import core.interfaces.IView;
 import core.view.View;
-import project.entity.Flight;
 import project.entity.Route;
 import project.helpers.property.RouteProperty;
 
 import java.util.List;
 import java.util.Scanner;
 
-public class RouteMainView extends View implements IView {
+public class RouteMainView extends View {
 
     public RouteMainView(){
-
-    }
-
-    @Override
-    public void print(String tpl, String[] params, boolean newLine) {
 
     }
 
@@ -62,8 +55,6 @@ public class RouteMainView extends View implements IView {
             case 0:
                 return "menu/init";
         }
-
-        // System.out.println("\n*Type action number and data (if needed) with whitespace as divider*\n");
 
         return "Route/init";
     }

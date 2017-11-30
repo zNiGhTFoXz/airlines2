@@ -7,21 +7,13 @@ public abstract class View {
     }
 
     public void clear(){
-        try
-        {
+        try {
             final String os = System.getProperty("os.name");
-
             if (os.contains("Windows"))
-            {
-                Runtime.getRuntime().exec("cls");
-            }
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
             else
-            {
                 Runtime.getRuntime().exec("clear");
-            }
-        }
-        catch (final Exception e)
-        {
+        }catch (Exception exp){
 
         }
     }

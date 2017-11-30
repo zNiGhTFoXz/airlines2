@@ -1,23 +1,13 @@
 package project.view.flight;
 
-import core.interfaces.IView;
 import core.view.View;
-import project.entity.Flight;
-
-import java.io.FileReader;
-import java.util.Date;
-import java.util.Scanner;
 import project.helpers.property.FlightProperty;
 
-public class FlightCreateView extends View implements IView {
+import java.util.Scanner;
 
-    @Override
-    public void print(String tpl, String[] params, boolean newLine) {
-
-    }
+public class FlightCreateView extends View {
 
     public String init() {
-        boolean flag = true;
         do {
             System.out.println("---- CREATE FLIGHT -----");
             Scanner scanner = new Scanner(System.in); // получаем InputStream
@@ -40,7 +30,6 @@ public class FlightCreateView extends View implements IView {
 
             System.out.println("Result:\n");
 
-
             System.out.printf("[Number]: %s\t", number);
             System.out.printf("[Airbus]: %s\t", airbus);
             System.out.printf("[Time From]: %s\t", timeFrom);
@@ -57,35 +46,36 @@ public class FlightCreateView extends View implements IView {
                 System.out.println("Incorrect value");
                 b = scanner.nextInt();
             }
-                switch (b) {
-                    case 1:
-                        return "Flight/create?" +
-                                FlightProperty.NUMBER + "=" + number + "&" +
-                                FlightProperty.AIRBUS + "=" + airbus + "&" +
-                                FlightProperty.TIME_FROM + "=" + timeFrom + "&" +
-                                FlightProperty.TIME_PATH + "=" + timePath + "&" +
-                                FlightProperty.ROUTE + "=" + route;
-                    case 2:
-                        break;
-                    case 0:
-                        return "Flight/init";
-                }
 
-        } while(flag);
-        return null;
+            switch (b) {
+                case 1:
+                    return "Flight/create?" +
+                            FlightProperty.NUMBER + "=" + number + "&" +
+                            FlightProperty.AIRBUS + "=" + airbus + "&" +
+                            FlightProperty.TIME_FROM + "=" + timeFrom + "&" +
+                            FlightProperty.TIME_PATH + "=" + timePath + "&" +
+                            FlightProperty.ROUTE + "=" + route;
+                case 2:
+                    break;
+                case 0:
+                    return "Flight/init";
+            }
+        } while(true);
     }
 
-    public String success(String uuid){
-        System.out.println("Successful created " + uuid);
+    public String success(){
+        System.out.println("Successful created!");
         System.out.println("Press any key!");
         (new Scanner(System.in)).next();
-        return "Flight/init";
 
+        return "Flight/init";
     }
+
     public String error(){
         System.out.println("Error");
         System.out.println("Press any key!");
         (new Scanner(System.in)).next();
+
         return "Flight/init";
     }
 }

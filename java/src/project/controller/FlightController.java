@@ -3,9 +3,6 @@ package project.controller;
 import core.controller.Controller;
 import core.entity.Entity;
 import core.interfaces.IController;
-import project.entity.Flight;
-import project.entity.Route;
-import project.helpers.property.FlightProperty;
 import project.model.FlightModel;
 import project.view.flight.FlightCreateView;
 import project.view.flight.FlightMainView;
@@ -45,15 +42,14 @@ public class FlightController extends Controller implements IController{
 
     @Override
     public String create(Map<String, String> params){
-        String result = this.model.create(params);
+        boolean result = this.model.create(params);
 
         FlightCreateView view = new FlightCreateView();
-        if (result != null) {
-            view.success(result);
+        if (result) {
+            return view.success();
         } else {
-            view.error();
+            return view.error();
         }
-        return null;
     }
 
     @Override
@@ -64,10 +60,5 @@ public class FlightController extends Controller implements IController{
     @Override
     public String update(String id) {
         return null;
-    }
-
-    @Override
-    public void setLastAction(String lastAction) {
-
     }
 }

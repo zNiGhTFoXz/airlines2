@@ -12,7 +12,4 @@ public interface IController {
     String delete(String id);
     String update(String id);
     String create(Map<String, String> params);
-
-
-    void setLastAction(String lastAction);
 }

@@ -1,19 +1,13 @@
 package project.view.route;
 
-import core.interfaces.IView;
 import core.view.View;
 import project.helpers.property.RouteProperty;
 
 import java.util.Scanner;
 
-public class RouteUpdateView extends View implements IView {
-    @Override
-    public void print(String tpl, String[] params, boolean newLine) {
-
-    }
+public class RouteUpdateView extends View {
 
     public String init(String uuid) {
-        boolean flag = true;
         do {
             System.out.println("---- UPDATE ROUTE -----");
             Scanner scanner = new Scanner(System.in); // получаем InputStream
@@ -44,7 +38,6 @@ public class RouteUpdateView extends View implements IView {
                     return "Route/init";
             }
 
-        } while (flag);
-        return null;
+        } while (true);
     }
 }
