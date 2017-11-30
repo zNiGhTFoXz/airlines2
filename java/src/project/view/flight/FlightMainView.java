@@ -34,7 +34,7 @@ public class FlightMainView extends View {
 
             Route route = flight.getRoute();
             if(route == null){
-                System.out.printf("[Route]: %s\t", null);
+                System.out.printf("[Route]: %s\t", "null");
             }else{
                 System.out.print("\n\t\tRoute: ");
 

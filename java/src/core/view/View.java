@@ -6,7 +6,7 @@ public abstract class View {
         clear();
     }
 
-    public void clear(){
+    private void clear(){
         try {
             final String os = System.getProperty("os.name");
             if (os.contains("Windows"))
@@ -14,7 +14,7 @@ public abstract class View {
             else
                 Runtime.getRuntime().exec("clear");
         }catch (Exception exp){
-
+            exp.printStackTrace();
         }
     }
 }

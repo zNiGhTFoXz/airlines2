@@ -1,42 +1,16 @@
-import project.entity.Route;
-import project.helpers.LocationParser;
 import project.helpers.Router;
-import project.model.RouteModel;
-import project.view.flight.FlightCreateView;
-import project.view.flight.FlightMainView;
 
 public class Main {
     public static void main (String args[]){
-        RouteModel route = new RouteModel();
-        route.save(new Route());
-
         Router router = new Router();
         try {
             router.start();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        /*
-        * **************************************
-        * # TESTS #
-        ****************************************
-        */
-
-        // -- # Location Parser Test # --
-        //test1();
-
-        /*Route a = new Route();
-        System.out.println(a.getUuid().toString());
-        System.out.println(a.getVersion());
-
-        Flight b = new Flight();
-        System.out.println(b.getUuid().toString());
-        System.out.println(b.getVersion());*/
-
     }
 
-    private static void test1(){
+    /*private static void test1(){
         String [] locations = {
                 "controller/action?id=&id2=test2$=test3",
                 "controller/action",
@@ -59,5 +33,5 @@ public class Main {
             }
             System.out.println();
         }
-    }
+    }*/
 }
