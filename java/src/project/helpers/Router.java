@@ -18,8 +18,11 @@ public final class Router {
     private String ACTION_NAME;
     private Map<String, String> PARAMS;
 
+    private IController controller;
+    private String location;
+
     public void start(){
-        LocationParser lp = new LocationParser();
+        LocationParser locationParser = new LocationParser();
 
         do {
             if (CONTROLLER_NAME == null || CONTROLLER_NAME.isEmpty()) {
@@ -36,33 +39,49 @@ public final class Router {
                 PARAMS = new HashMap<>();
             }
 
-            IController controller;
-
             try {
-                controller = getController(CONTROLLER_PACKAGE + "." + CONTROLLER_NAME + CONTROLLER_PREFIX);
+                this.controller = getController(CONTROLLER_PACKAGE + "." + CONTROLLER_NAME + CONTROLLER_PREFIX);
             } catch (Exception exp) {
-                controller = new MenuController();
+                this.controller = new MenuController();
             }
-
-            String location = "";
 
             try {
-                location = callAction(controller, ACTION_NAME, PARAMS);
-            } catch (Exception e) {
-                location = new MenuController().init();
+                this.location = callAction(this.controller, ACTION_NAME, PARAMS);
+            } catch (Exception exp) {
+                this.location = new MenuController().init();
             }
 
-            lp.setLocation(location);
-            lp.parse();
+            locationParser.setLocation(this.location);
 
-            CONTROLLER_NAME = lp.getControllerName();
-            ACTION_NAME = lp.getActionName();
-            PARAMS = lp.getParams();
+            setProperty("CONTROLLER_NAME", locationParser.getControllerName());
+            setProperty("ACTION_NAME", locationParser.getActionName());
+            setProperty("PARAMS", locationParser.getParams());
         }while (true);
     }
 
-    private String actionEventListener(Map<String, Map<String, String>> listOfActions){
-        return "menu/init"; /* This is stub */
+    private void setProperty(String property, String value){
+        switch (property){
+            case "CONTROLLER_NAME": {
+                this.CONTROLLER_NAME = value;
+            } break;
+            case "ACTION_NAME": {
+                this.ACTION_NAME = value;
+            } break;
+            default: {
+                System.out.println("Unknown property name: " + property);
+            } break;
+        }
+    }
+
+    private void setProperty(String property, Map<String, String> value){
+        switch (property){
+            case "PARAMS": {
+                this.PARAMS = value;
+            } break;
+            default: {
+                System.out.println("Unknown property name: " + property);
+            } break;
+        }
     }
 
     private String prepareControllerName(final String name){

@@ -6,86 +6,89 @@ import core.model.Model;
 import project.entity.Route;
 import project.helpers.property.RouteProperty;
 
-import java.io.*;
+import java.io.File;
+import java.io.FilenameFilter;
+import java.io.IOException;
 import java.nio.file.Files;
-
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-
-
 public class RouteModel extends Model implements IModel{
     private String path;
     private String ext;
+    private String divider;
 
     public RouteModel() {
         this.path = "RouteDir/";
         this.ext = ".out";
+        this.divider = "";
     }
 
-
     @Override
-    public String create(Map<String, String> params) {
+    public boolean create(final Map<String, String> params) {
         Route route = new Route();
 
-        if (params.containsKey(RouteProperty.FLIGHT_FROM)){
+        if(params.containsKey(RouteProperty.FLIGHT_FROM)){
             route.setFlightFrom(params.get(RouteProperty.FLIGHT_FROM));
         }
-        if (params.containsKey(RouteProperty.FLIGHT_TO)){
+
+        if(params.containsKey(RouteProperty.FLIGHT_TO)){
             route.setFlightTo(params.get(RouteProperty.FLIGHT_TO));
         }
 
-        save(route);
-
-        return route.getUUID().toString();
+        return save(route);
     }
 
     @Override
-    public void save(Entity obj) {
+    public boolean save(final Entity obj) {
+        String filename = obj.getUUID() + this.divider;
 
-            String filename = obj.getUUID().toString();
-            if(!Files.isDirectory(Paths.get(this.path))) {
-                try {
-                    Files.createDirectory(Paths.get(path));
-                } catch (IOException exp) {
-                    return; //TODO доделать
-                }
-            }
-
+        if(!Files.isDirectory(Paths.get(this.path))) {
             try {
-                writeObject(path + filename + this.ext, obj);
-            } catch (IOException exp){
-                return; //TODO доделать
+                Files.createDirectory(Paths.get(path));
+            } catch (IOException exp) {
+                return false; //Error. Can't create directory
             }
+        }
+
+        try {
+            writeObject(path + filename + this.ext, obj);
+        } catch (IOException exp){
+            return false; //Error while trying to write a file
+        }
+
+        return true;
     }
 
     @Override
-    public Entity load(String uuid) {
+    public Entity load(final String uuid) {
+        if (!Files.isDirectory(Paths.get(this.path))){
+            return null; //Error. Can't load from non existing directory
+        }
 
-            if(!Files.isDirectory(Paths.get(this.path))) {
-                return null;
-            }
+        File[] files = getFilesByMask(uuid);
 
-            File[] files = getFilesByMask(uuid);
-            for (File file : files){
-                Route route;
-                try {
-                    route = (Route) readObject(file.getPath());
-                    return route;
-                } catch (Exception exp) {
-                    return null;
-                }
+        if(files.length > 0){
+            Route route;
+            try {
+                route = (Route) readObject(files[0].getPath());
+                return route;
+            } catch (Exception exp) {
+                return null; //Error while trying to read from a file
             }
-            return null;
+        }
+
+        return null; //Files was not found
     }
 
     @Override
     public List<Entity> loadAll(){
         if(!Files.isDirectory(Paths.get(this.path))){
-            return new ArrayList<>();
+            return null; //Can't load files from non existing directory
         }
+
         List<Entity> list = new ArrayList<>();
 
         File path = new File(this.path);
@@ -93,8 +96,9 @@ public class RouteModel extends Model implements IModel{
 
         for(File file : listOfFiles){
             if(file.isFile()){
-                String fname = file.getName().substring(0, file.getName().indexOf('.'));
-                Entity routeObject = load(fname);
+                //filename without extension
+                String filename = file.getName().substring(0, file.getName().indexOf('.'));
+                Entity routeObject = load(filename);
                 if(routeObject != null){
                     list.add(routeObject);
                 }
@@ -103,7 +107,13 @@ public class RouteModel extends Model implements IModel{
 
         return list;
     }
-    private File[] getFilesByMask(String uuid){
+
+    @Override
+    public File[] getFilesByMask(final String uuid){
+        if(!Files.isDirectory(Paths.get(this.path))){
+            return new File[]{}; //Can't get files from non existing directory
+        }
+
         File dir = new File(this.path);
         File[] files = dir.listFiles(new FilenameFilter() {
             @Override
@@ -111,26 +121,34 @@ public class RouteModel extends Model implements IModel{
                 return name.startsWith(uuid);
             }
         });
+
         return files;
     }
 
-    public void delete(String uuid){
+    @Override
+    public boolean delete(final String uuid){
         File[] files = getFilesByMask(uuid);
 
-        for (File file : files) {
-            if (!file.delete()) {
-                //TODO доделать
-            }
-
+        if(files.length > 0){
+            return files[0].delete();
         }
-    }
-    public boolean update(Map<String, String> params) {
 
+        return false;
+    }
+
+    @Override
+    public boolean update(final Map<String, String> params) {
         if (!Files.isDirectory(Paths.get(this.path))) {
             return false;
         }
 
-        String uuid = params.get(RouteProperty.UUID);
+        String uuid;
+
+        if(params.containsKey(RouteProperty.UUID)){
+            uuid = params.get(RouteProperty.UUID);
+        }else {
+            return false; //Error. Can't update file without uuid
+        }
 
         File[] files = getFilesByMask(uuid);
 

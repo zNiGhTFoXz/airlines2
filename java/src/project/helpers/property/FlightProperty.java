@@ -8,4 +8,6 @@ public class FlightProperty {
     public static final String ROUTE = "route";
     public static final String TIME_FROM = "timeFrom";
     public static final String TIME_PATH = "timePath";
+    public static final String DATE_FORMAT = "dd-mm-yyyy";
+    public static final String TIME_FORMAT = "hh:mm:ss";
 }

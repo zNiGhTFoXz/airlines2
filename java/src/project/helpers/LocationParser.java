@@ -18,21 +18,9 @@ public final class LocationParser {
         this.location = location;
     }
 
-    public String getBackLocation() {
-        if(this.backLocation == null || this.backLocation.isEmpty()) {
-            return null;
-        }
-
-        return this.backLocation;
-    }
-
-    public void setBackLocation(String backLocation) {
-        this.backLocation = backLocation;
-    }
-
     public void setLocation(String location){
-        this.backLocation = this.location;
         this.location = location;
+        parse();
     }
 
     public String getLocation(){
@@ -59,7 +47,7 @@ public final class LocationParser {
     private Map<String, String> parse(String query){
         Map<String, String > paramsMap = new HashMap<>();
         // name=value
-        String regExp = "(\\w+)\\=(\\w+)";
+        String regExp = "([a-zA-Z-]+)=([a-zA-Z-.]+)";
 
         Pattern pattern = Pattern.compile(regExp);
         Matcher matcher = pattern.matcher(query);

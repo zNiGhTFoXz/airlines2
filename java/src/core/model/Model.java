@@ -1,12 +1,11 @@
 package core.model;
 
 import core.entity.Entity;
-import project.entity.Flight;
 
 import java.io.*;
 
 public abstract class Model {
-    public void writeObject(String path, Entity obj) throws IOException{
+    protected void writeObject(String path, Entity obj) throws IOException {
         FileOutputStream fos = new FileOutputStream(path);
         ObjectOutputStream oos = new ObjectOutputStream(fos);
         oos.writeObject(obj);
@@ -14,12 +13,10 @@ public abstract class Model {
         oos.close();
     }
 
-    public Entity readObject(String path) throws IOException, ClassNotFoundException{
+    protected Entity readObject(String path) throws IOException, ClassNotFoundException{
         FileInputStream fis = new FileInputStream(path);
         ObjectInputStream oin = new ObjectInputStream(fis);
-        Entity obj = (Entity) oin.readObject();
 
-        return obj;
-
+        return (Entity) oin.readObject();
     }
 }

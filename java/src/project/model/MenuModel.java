@@ -4,23 +4,24 @@ import core.entity.Entity;
 import core.interfaces.IModel;
 import core.model.Model;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
 public class MenuModel extends Model implements IModel{
 
     @Override
-    public String create(Map<String, String> params) {
-        return null;
+    public boolean create(final Map<String, String> params) {
+        return false;
     }
 
     @Override
-    public void save(Entity obj) {
-
+    public boolean save(final Entity obj) {
+        return false;
     }
 
     @Override
-    public Entity load(String uuid) {
+    public Entity load(final String uuid) {
         return null;
     }
 
@@ -30,12 +31,17 @@ public class MenuModel extends Model implements IModel{
     }
 
     @Override
-    public void delete(String uuid) {
-
+    public boolean delete(final String uuid) {
+        return false;
     }
 
     @Override
-    public boolean update(Map<String, String> params) {
+    public boolean update(final Map<String, String> params) {
         return false;
+    }
+
+    @Override
+    public File[] getFilesByMask(final String uuid) {
+        return new File[0];
     }
 }
