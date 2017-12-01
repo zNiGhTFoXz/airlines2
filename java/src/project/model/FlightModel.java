@@ -205,10 +205,10 @@ public class FlightModel extends Model implements IModel {
 
         File[] files = getFilesByMask(uuid);
 
-        for (File file : files) {
+        if(files.length > 0){
             Flight flight;
             try {
-                flight = (Flight) readObject(file.getPath());
+                flight = (Flight) readObject(files[0].getPath());
             } catch (Exception exp) {
                 return false; //Error while reading from a file
             }
@@ -256,8 +256,10 @@ public class FlightModel extends Model implements IModel {
                     return false; //Error while trying to parse time
                 }
             }
+
+            return save(flight);
         }
 
-        return true; //Successful update
+        return false;
     }
 }

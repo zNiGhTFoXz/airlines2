@@ -29,9 +29,9 @@ public class RouteShowView extends View {
         }
         switch (b) {
             case 1:
-                return "Route/update";
+                return "Route/update?"+ RouteProperty.UUID + "=" + route.getUUID();
             case 2:
-                return "Route/delete?"+ RouteProperty.UUID+"="+route.getUUID().toString();
+                return "Route/delete?"+ RouteProperty.UUID+"="+route.getUUID();
             case 0:
                 return "Route/get";
         }

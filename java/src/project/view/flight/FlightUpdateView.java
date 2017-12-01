@@ -14,22 +14,21 @@ public class FlightUpdateView extends View {
             Scanner scanner = new Scanner(System.in); // получаем InputStream
 
             System.out.print("[Number]: ");
-            String number = scanner.next();
+            String number = scanner.nextLine();
 
             System.out.print("[Airbus]: ");
-            String airbus = scanner.next();
+            String airbus = scanner.nextLine();
 
             System.out.print("[Time from]: ");
-            String timeFrom = scanner.next();
+            String timeFrom = scanner.nextLine();
 
             System.out.print("[Time path]: ");
-            String timePath = scanner.next();
+            String timePath = scanner.nextLine();
 
             System.out.print("[Route](UUID): ");
-            String route = scanner.next();
+            String route = scanner.nextLine();
 
-            //???
-            System.out.printf("%s %s %s %s %s\n", number, airbus, timeFrom, timePath, route);
+            System.out.printf("[Number]: %s [Airbus]: %s [Time from]: %s [Time path]: %s [Route](UUID): %s\n", number, airbus, timeFrom, timePath, route);
 
             System.out.println("\nMenu:");
             System.out.println("[1] - Confirm");

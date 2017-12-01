@@ -163,10 +163,10 @@ public class RouteModel extends Model implements IModel{
 
         File[] files = getFilesByMask(uuid);
 
-        for(File file : files){
+        if(files.length > 0){
             Route route;
             try{
-                route = (Route) readObject(file.getPath());
+                route = (Route) readObject(files[0].getPath());
             } catch (Exception exp) {
                 return false;
             }
@@ -177,8 +177,10 @@ public class RouteModel extends Model implements IModel{
             if (params.containsKey(RouteProperty.FLIGHT_TO)){
                 route.setFlightTo(params.get(RouteProperty.FLIGHT_TO));
             }
+
+            return save(route);
         }
 
-        return true;
+        return false;
     }
 }

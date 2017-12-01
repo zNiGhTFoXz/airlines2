@@ -14,13 +14,13 @@ public class RouteUpdateView extends View {
             Scanner scanner = new Scanner(System.in); // получаем InputStream
 
             System.out.print("[Flight from]: ");
-            String flightFrom = scanner.next();
+            String flightFrom = scanner.nextLine();
 
             System.out.print("[Flight to]: ");
-            String flightTo = scanner.next();
+            String flightTo = scanner.nextLine();
 
 
-            System.out.printf("%s %s\n", flightFrom, flightTo);
+            System.out.printf("[Flight from]: %s [Flight to]: %s\n", flightFrom, flightTo);
 
             System.out.println("\nMenu:");
             System.out.println("[1] - Confirm");
