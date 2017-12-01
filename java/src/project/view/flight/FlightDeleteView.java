@@ -6,8 +6,8 @@ import java.util.Scanner;
 
 public class FlightDeleteView extends View{
 
-    public String success(String uuid){
-        System.out.println("Successful deleted " + uuid);
+    public String success(){
+        System.out.println("Successful deleted!");
         System.out.println("Press any key!");
         (new Scanner(System.in)).next();
 

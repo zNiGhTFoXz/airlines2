@@ -9,6 +9,7 @@ public interface IController {
     String get(HashMap<String, String> params);
 
     String create();
+    String update();
     String delete(HashMap<String, String> params);
     String update(HashMap<String, String> params);
     String create(HashMap<String, String> params);

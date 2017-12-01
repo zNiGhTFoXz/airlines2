@@ -5,6 +5,7 @@ import core.entity.Entity;
 import core.interfaces.IController;
 import project.model.FlightModel;
 import project.view.flight.FlightCreateView;
+import project.view.flight.FlightDeleteView;
 import project.view.flight.FlightMainView;
 
 import java.util.HashMap;
@@ -41,6 +42,11 @@ public class FlightController extends Controller implements IController{
     }
 
     @Override
+    public String update() {
+        return null;
+    }
+
+    @Override
     public String create(HashMap<String, String> params){
         boolean result = this.model.create(params);
 
@@ -54,7 +60,13 @@ public class FlightController extends Controller implements IController{
 
     @Override
     public String delete(HashMap<String, String> params) {
-        return null;
+        FlightDeleteView view = new FlightDeleteView();
+        boolean result = this.model.delete(params);
+        if(result){
+            return view.success();
+        }else {
+            return view.error();
+        }
     }
 
     @Override

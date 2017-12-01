@@ -47,6 +47,11 @@ public class RouteController extends Controller implements IController{
     }
 
     @Override
+    public String update() {
+        return null;
+    }
+
+    @Override
     public String delete(HashMap<String, String> params) {
         return null;
     }
