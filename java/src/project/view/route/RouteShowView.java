@@ -33,7 +33,7 @@ public class RouteShowView extends View {
             case 2:
                 return "Route/delete?"+ RouteProperty.UUID+"="+route.getUUID().toString();
             case 0:
-                return "Route/init";
+                return "Route/get";
         }
         return null;
     }

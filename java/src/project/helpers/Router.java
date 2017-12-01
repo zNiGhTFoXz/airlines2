@@ -9,7 +9,7 @@ import java.util.Map;
 
 public final class Router {
     private static final String DEFAULT_CONTROLLER = "menu";//menu
-    private static final String DEFAULT_ACTION = "init";//init
+    private static final String DEFAULT_ACTION = "get";//get
 
     private static final String CONTROLLER_PREFIX = "Controller";
     private static final String CONTROLLER_PACKAGE = "project.controller";
@@ -48,7 +48,7 @@ public final class Router {
             try {
                 this.location = callAction(this.controller, ACTION_NAME, PARAMS);
             } catch (Exception exp) {
-                this.location = new MenuController().init();
+                this.location = new MenuController().get();
             }
 
             locationParser.setLocation(this.location);

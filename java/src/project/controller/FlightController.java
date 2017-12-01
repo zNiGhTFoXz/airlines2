@@ -3,10 +3,10 @@ package project.controller;
 import core.controller.Controller;
 import core.entity.Entity;
 import core.interfaces.IController;
+import project.entity.Flight;
+import project.helpers.property.FlightProperty;
 import project.model.FlightModel;
-import project.view.flight.FlightCreateView;
-import project.view.flight.FlightDeleteView;
-import project.view.flight.FlightMainView;
+import project.view.flight.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -18,20 +18,17 @@ public class FlightController extends Controller implements IController{
     }
 
     @Override
-    public String init() {
+    public String get() {
         List<Entity> listOfFlights = this.model.loadAll();
         FlightMainView view = new FlightMainView();
         return view.init(listOfFlights);
     }
 
     @Override
-    public String get() {
-        return null;
-    }
-
-    @Override
     public String get(HashMap<String, String> params) {
-        return null;
+        FlightShowView view = new FlightShowView();
+        Flight obj = (Flight) this.model.load(params);
+        return view.init(obj);
     }
 
     @Override
@@ -71,6 +68,21 @@ public class FlightController extends Controller implements IController{
 
     @Override
     public String update(HashMap<String, String> params) {
-        return null;
+        FlightUpdateView view = new FlightUpdateView();
+        if(params.size() == 1 && params.containsKey(FlightProperty.UUID)){
+            Flight obj = (Flight) this.model.load(params);
+
+            if(obj == null){
+                return view.error();
+            }else {
+                return view.init(obj);
+            }
+        }else {
+            if(this.model.update(params)){
+                return view.success();
+            }else {
+                return view.error();
+            }
+        }
     }
 }

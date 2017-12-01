@@ -1,13 +1,14 @@
 package project.view.flight;
 
 import core.view.View;
+import project.entity.Flight;
 import project.helpers.property.FlightProperty;
 
 import java.util.Scanner;
 
 public class FlightUpdateView extends View {
 
-    public String init(String uuid) {
+    public String init(Flight flight) {
         do {
             System.out.println("---- UPDATE FLIGHT -----");
             Scanner scanner = new Scanner(System.in); // получаем InputStream
@@ -39,17 +40,33 @@ public class FlightUpdateView extends View {
             switch (b) {
                 case 1:
                     return "Flight/update?" +
-                            FlightProperty.UUID + "=" + uuid + "&" +
+                            FlightProperty.UUID + "=" + flight.getUUID() + "&" +
                             FlightProperty.NUMBER + "=" + number + "&" +
                             FlightProperty.AIRBUS + "=" + airbus + "&" +
                             FlightProperty.TIME_FROM + "=" + timeFrom + "&" +
                             FlightProperty.TIME_PATH + "=" + timePath + "&" +
                             FlightProperty.ROUTE + "=" + route;
                 case 2:
-                    return "Flight/update";
+                    break;
                 case 0:
-                    return "Flight/init";
+                    return "Flight/get?"+ FlightProperty.UUID + "=" + flight.getUUID();
             }
         } while (true);
+    }
+
+    public String error(){
+        System.out.println("Error");
+        System.out.println("Press any key!");
+        (new Scanner(System.in)).next();
+
+        return "Flight/get";
+    }
+
+    public String success(){
+        System.out.println("Error");
+        System.out.println("Press any key!");
+        (new Scanner(System.in)).next();
+
+        return "Flight/get";
     }
 }

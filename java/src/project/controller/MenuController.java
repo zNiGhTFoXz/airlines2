@@ -14,15 +14,10 @@ public class MenuController extends Controller implements IController{
     }
 
     @Override
-    public String init() {
+    public String get() {
         MenuView menu = new MenuView();
 
         return menu.init();
-    }
-
-    @Override
-    public String get() {
-        return null;
     }
 
     @Override

@@ -45,9 +45,9 @@ public class FlightShowView extends View {
             case 1:
                 return "Flight/update";
             case 2:
-                return "Flight/delete?"+FlightProperty.UUID+"="+flight.getUUID().toString();
+                return "Flight/delete?"+FlightProperty.UUID+"="+flight.getUUID();
             case 0:
-                return "Flight/init";
+                return "Flight/get";
         }
 
         return null;

@@ -58,7 +58,7 @@ public class FlightCreateView extends View {
                 case 2:
                     break;
                 case 0:
-                    return "Flight/init";
+                    return "Flight/get";
             }
         } while(true);
     }
@@ -68,7 +68,7 @@ public class FlightCreateView extends View {
         System.out.println("Press any key!");
         (new Scanner(System.in)).next();
 
-        return "Flight/init";
+        return "Flight/get";
     }
 
     public String error(){
@@ -76,6 +76,6 @@ public class FlightCreateView extends View {
         System.out.println("Press any key!");
         (new Scanner(System.in)).next();
 
-        return "Flight/init";
+        return "Flight/get";
     }
 }

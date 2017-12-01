@@ -27,9 +27,9 @@ public class MenuView extends View{
                 } else {
                     switch (b) {
                         case 1:
-                            return "Route/init";
+                            return "Route/get";
                         case 2:
-                            return "Flight/init";
+                            return "Flight/get";
                         case 0:
                             System.exit(0);
                     }
@@ -39,6 +39,6 @@ public class MenuView extends View{
             }
         }while (true);
 
-        return "menu/init";
+        return "Menu/get";
     }
 }

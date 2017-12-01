@@ -42,7 +42,7 @@ public class RouteCreateView extends View {
                 case 2:
                     break;
                 case 0:
-                    return "Route/init";
+                    return "Route/get";
             }
         } while (true);
     }
@@ -52,7 +52,7 @@ public class RouteCreateView extends View {
         System.out.println("Press any key!");
         (new Scanner(System.in)).next();
 
-        return "Route/init";
+        return "Route/get";
     }
 
     public String error() {
@@ -60,6 +60,6 @@ public class RouteCreateView extends View {
         System.out.println("Press any key!");
         (new Scanner(System.in)).next();
 
-        return "Route/init";
+        return "Route/get";
     }
 }

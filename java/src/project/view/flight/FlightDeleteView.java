@@ -11,7 +11,7 @@ public class FlightDeleteView extends View{
         System.out.println("Press any key!");
         (new Scanner(System.in)).next();
 
-        return "Flight/init";
+        return "Flight/get";
     }
 
     public String error(){
@@ -19,6 +19,6 @@ public class FlightDeleteView extends View{
         System.out.println("Press any key!");
         (new Scanner(System.in)).next();
 
-        return "Flight/init";
+        return "Flight/get";
     }
 }

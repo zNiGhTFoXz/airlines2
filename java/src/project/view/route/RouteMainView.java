@@ -53,9 +53,9 @@ public class RouteMainView extends View {
                 }while (b<1 && b>list.size());
                 return "Route/get?"+ RouteProperty.UUID+"="+list.get(b-1).getUUID();
             case 0:
-                return "menu/init";
+                return "Menu/get";
         }
 
-        return "Route/init";
+        return "Route/get";
     }
 }

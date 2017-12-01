@@ -4,10 +4,9 @@ import core.controller.Controller;
 import core.entity.Entity;
 import core.interfaces.IController;
 import project.entity.Route;
+import project.helpers.property.RouteProperty;
 import project.model.RouteModel;
-import project.view.route.RouteCreateView;
-import project.view.route.RouteMainView;
-import project.view.route.RouteShowView;
+import project.view.route.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,7 +18,7 @@ public class RouteController extends Controller implements IController{
     }
 
     @Override
-    public String init() {
+    public String get() {
         List<Entity> listOfRoutes = this.model.loadAll();
         RouteMainView view = new RouteMainView();
 
@@ -27,16 +26,11 @@ public class RouteController extends Controller implements IController{
     }
 
     @Override
-    public String get() {
-        return null;
-    }
-
-    @Override
     public String get(HashMap<String, String> params) {
         RouteShowView view = new RouteShowView();
         Route obj = (Route) model.load(params);
-        return view.init(obj);
 
+        return view.init(obj);
     }
 
     @Override
@@ -53,12 +47,33 @@ public class RouteController extends Controller implements IController{
 
     @Override
     public String delete(HashMap<String, String> params) {
-        return null;
+        RouteDeleteView view = new RouteDeleteView();
+        boolean result = this.model.delete(params);
+        if(result){
+            return view.success();
+        }else {
+            return view.error();
+        }
     }
 
     @Override
     public String update(HashMap<String, String> params) {
-        return null;
+        RouteUpdateView view = new RouteUpdateView();
+        if(params.size() == 1 && params.containsKey(RouteProperty.UUID)){
+            Route obj = (Route) this.model.load(params);
+
+            if(obj == null){
+                return view.error();
+            }else {
+                return view.init(obj);
+            }
+        }else {
+            if(this.model.update(params)){
+                return view.success();
+            }else {
+                return view.error();
+            }
+        }
     }
 
     @Override
