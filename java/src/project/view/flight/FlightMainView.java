@@ -67,7 +67,7 @@ public class FlightMainView extends View {
                 }while (b<1 && b>list.size());
                 return "Flight/get?"+FlightProperty.UUID+"="+list.get(b-1).getUUID();
             case 0:
-                return "Menu/get";
+                return "menu/init";
         }
 
         return "Flight/get";

@@ -3,7 +3,9 @@ package project.model;
 import core.entity.Entity;
 import core.interfaces.IModel;
 import core.model.Model;
+import project.entity.Flight;
 import project.entity.Route;
+import project.helpers.property.FlightProperty;
 import project.helpers.property.RouteProperty;
 
 import java.io.File;
@@ -134,11 +136,29 @@ public class RouteModel extends Model implements IModel{
 
     @Override
     public boolean delete(final Map<String, String> params){
+
+        ArrayList<String> flightParams = new ArrayList<>();
+        File folder = new File("FlightDir/");
+        String[] listOfFiles = folder.list();
+
+        for(String file : listOfFiles){
+                //uuid_
+            String filename= file.substring(file.indexOf('_')+1, file.indexOf("."));
+
+            flightParams.add(filename);
+        }
+
         if(!params.containsKey(RouteProperty.UUID)){
             return false;
         }
 
         File[] files = getFilesByMask(params.get(RouteProperty.UUID));
+
+        for (String uuid : flightParams) {
+            if(uuid.equals(params.get(RouteProperty.UUID))) {
+                return false;
+            }
+        }
 
         if(files.length > 0){
             return files[0].delete();

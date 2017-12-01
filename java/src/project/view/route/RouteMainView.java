@@ -14,7 +14,7 @@ public class RouteMainView extends View {
 
     }
 
-    public String init(List<Entity> list){
+    public String get(List<Entity> list){
         System.out.println("-- # ROUTES # --\n");
 
         if(list == null || list.isEmpty()){

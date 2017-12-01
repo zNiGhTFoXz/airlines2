@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class RouteShowView extends View {
 
-    public String init(Route route){
+    public String get(Route route){
         Scanner scanner = new Scanner(System.in);
 
         System.out.printf("[UUID]: %s\t", route.getUUID());

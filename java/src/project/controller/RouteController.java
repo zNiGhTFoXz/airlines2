@@ -22,7 +22,7 @@ public class RouteController extends Controller implements IController{
         List<Entity> listOfRoutes = this.model.loadAll();
         RouteMainView view = new RouteMainView();
 
-        return view.init(listOfRoutes);
+        return view.get(listOfRoutes);
     }
 
     @Override
@@ -30,14 +30,14 @@ public class RouteController extends Controller implements IController{
         RouteShowView view = new RouteShowView();
         Route obj = (Route) model.load(params);
 
-        return view.init(obj);
+        return view.get(obj);
     }
 
     @Override
     public String create() {
         RouteCreateView view = new RouteCreateView();
 
-        return view.init();
+        return view.get();
     }
 
     @Override

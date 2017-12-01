@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class FlightCreateView extends View {
 
-    public String init() {
+    public String get() {
         do {
             System.out.println("---- CREATE FLIGHT -----");
             Scanner scanner = new Scanner(System.in); // получаем InputStream

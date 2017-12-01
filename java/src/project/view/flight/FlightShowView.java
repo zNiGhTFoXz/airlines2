@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class FlightShowView extends View {
 
-    public String init(Flight flight){
+    public String get(Flight flight){
         Scanner scanner = new Scanner(System.in);
 
         System.out.printf("[UUID]: %s\t", flight.getUUID());

@@ -38,6 +38,7 @@ public class RouteUpdateView extends View {
                 case 0:
                     return "Route/get?" + RouteProperty.UUID + "=" + route.getUUID();
             }
+
         } while (true);
     }
 

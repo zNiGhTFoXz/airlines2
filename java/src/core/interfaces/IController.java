@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 public interface IController {
 
+
     String get();
     String get(HashMap<String, String> params);
 

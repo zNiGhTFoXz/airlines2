@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class RouteCreateView extends View {
 
-    public String init() {
+    public String get() {
         do {
             System.out.println("---- CREATE ROUTE -----");
             Scanner scanner = new Scanner(System.in); // получаем InputStream

@@ -28,14 +28,14 @@ public class FlightController extends Controller implements IController{
     public String get(HashMap<String, String> params) {
         FlightShowView view = new FlightShowView();
         Flight obj = (Flight) this.model.load(params);
-        return view.init(obj);
+        return view.get(obj);
     }
 
     @Override
     public String create() {
         FlightCreateView view = new FlightCreateView();
 
-        return view.init();
+        return view.get();
     }
 
     @Override
