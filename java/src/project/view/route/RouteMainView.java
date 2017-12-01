@@ -17,11 +17,11 @@ public class RouteMainView extends View {
     public String init(List<Entity> list){
         System.out.println("-- # ROUTES # --\n");
 
-        if(list.isEmpty()){
+        if(list == null || list.isEmpty()){
             System.out.println("-- ROUTES IS EMPTY -- \n");
         }
 
-        for(int i = 0; i < list.size(); i++){
+        for(int i = 0; list != null && i < list.size(); i++){
             Route route = (Route) list.get(i);
 
             System.out.printf("[ID]: %s\t", (i+1));

@@ -16,7 +16,11 @@ public abstract class Model {
     protected Entity readObject(String path) throws IOException, ClassNotFoundException{
         FileInputStream fis = new FileInputStream(path);
         ObjectInputStream oin = new ObjectInputStream(fis);
+        Entity obj = (Entity) oin.readObject();
 
-        return (Entity) oin.readObject();
+        oin.close();
+        fis.close();
+
+        return obj;
     }
 }
