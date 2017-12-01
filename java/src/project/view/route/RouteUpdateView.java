@@ -44,7 +44,7 @@ public class RouteUpdateView extends View {
     public String error(){
         System.out.println("Error!");
         System.out.println("Press any key!");
-        (new Scanner(System.in)).next();
+        (new Scanner(System.in)).nextLine();
 
         return "Route/get";
     }
@@ -52,7 +52,7 @@ public class RouteUpdateView extends View {
     public String success(){
         System.out.println("Success!");
         System.out.println("Press any key!");
-        (new Scanner(System.in)).next();
+        (new Scanner(System.in)).nextLine();
 
         return "Route/get";
     }
